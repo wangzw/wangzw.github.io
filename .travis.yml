@@ -1,0 +1,14 @@
+language: python
+python:
+- 2.7
+install:
+- pip install -r requirements.txt --use-mirrors
+script:
+- make html
+env:
+  global:
+  - secure: bdR0He27Xv2uPww5rP4QwMg1yo2qI9iLkObVNI6v1cd/BLmE/mr957dp5wHwBnMNrpeZtn0eNzrJQw9qV2f0g7Gua0DdXLzLEMzRqoCIQhT39vbUU0JiwVJTkk4cYe4NdghUEFAQcL2NOT6sqJulMmiVmCjALw2be8VoeGN87H4=
+before_install:
+- git submodule update --init --recursive
+after_success: 
+- bash ./blog/deploy.sh
