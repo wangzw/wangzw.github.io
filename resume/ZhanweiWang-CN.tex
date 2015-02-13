@@ -1,0 +1,186 @@
+% !TEX encoding = UTF-8 Unicode
+% resume.tex
+% vim:set ft=tex spell:
+
+\documentclass[10pt,letterpaper]{article}
+\usepackage[a4paper, top=2.0cm, left=2.5cm, right=2.0cm, bottom=2.0cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage{CJK}
+\usepackage{mdwlist}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage{tgpagella}
+\pagestyle{empty}
+\setlength{\tabcolsep}{0em}
+
+% indentsection style, used for sections that aren't already in lists
+% that need indentation to the level of all text in the document
+\newenvironment{indentsection}[1]%
+{\begin{list}{}%
+	{\setlength{\leftmargin}{#1}}%
+	\item[]%
+}
+{\end{list}}
+
+% opposite of above; bump a section back toward the left margin
+\newenvironment{unindentsection}[1]%
+{\begin{list}{}%
+	{\setlength{\leftmargin}{-0.5#1}}%
+	\item[]%
+}
+{\end{list}}
+
+% format two pieces of text, one left aligned and one right aligned
+\newcommand{\headerrow}[2]
+{\begin{tabular*}{\linewidth}{l@{\extracolsep{\fill}}r}
+	#1 &
+	#2 \\
+\end{tabular*}}
+
+% make "C++" look pretty when used in text by touching up the plus signs
+\newcommand{\CPP}
+{C\nolinebreak[4]\hspace{-.05em}\raisebox{.22ex}{\footnotesize\bf ++}}
+
+% and the actual content starts here
+\begin{document}
+\begin{CJK}{UTF8}{gbsn}
+
+\begin{center}
+{\LARGE \textbf{王占伟}}
+
+\vspace{0.4em}
+
+(86) 138-1185-7720 
+wangzw@wangzw.org
+\end{center}
+
+\vspace{-2em}
+\subsection*{工作经历}
+
+\begin{itemize}
+	\parskip=0.1em
+
+	\item
+	\headerrow
+		{\textbf{易安信 / 毕威拓}}
+		{\textbf{北京}}
+	\\
+	\headerrow
+		{\emph{高级工程师}}
+		{\emph{2011 -- 至今}}
+	\begin{itemize*}
+		\item 毕威拓是易安信与威瑞公司控股的子公司，致力于云计算、大数据与应用开发。
+		\item 基于 Greenplum 分布式数据库实现HAWQ的第一个版本. HAWQ 是业界领先的SQL-On-Hadoop 产品。
+		\item 实现HAWQ的基本功能，例如创建删除表，插入与查询数据等。
+		\item 设计实现HAWQ的元数据分发与事务控制模块。
+		\item 集成HAWQ与HDFS的安全控制机制。
+	\end{itemize*}
+
+	\item
+	\headerrow
+		{\textbf{北京人大金仓信息技术股份有限公司}}
+		{\textbf{北京}}
+	\\
+	\headerrow
+		{\emph{软件工程师，实习}}
+		{\emph{2009 -- 2010}}
+	\begin{itemize*}
+		\item 人大金仓致力于国产数据库及相关产品的研发。
+		\item 负责改进KingbaseES数据库优化器。通过理论分析和实验测试，发现优化器代价估计过程中的问题和不足。结合国内外的研究成果，制定并实现改进方案。提高复杂查询性能并进行TPCH性能测试。
+		\item 使得部分复杂查询的性能提高10倍以上。TPCH测试指标大幅度提升。
+	\end{itemize*}
+	
+	\item
+	\headerrow
+		{\textbf{播思通讯技术（北京）有限公司}}
+		{\textbf{北京}}
+	\\
+	\headerrow
+		{\emph{软件工程师，实习}}
+		{\emph{2008 -- 2009}}
+	\begin{itemize*}
+		\item 播思是一家致力于向移动通信产业链各方提供软件解决方案的高新技术企业。
+		\item 负责windows平台下闪存工具的开发。与用户沟通，调研用户需求，重构原有工具。根据用户反映的使用情况改进工具的功能和性能。开展培训工作，介绍工具的特点和用法。
+		\item 新工具的生产效率比原有工具提高一倍，被广泛应用在企业内部手机研发和生产中。
+	\end{itemize*}
+\end{itemize}
+
+\vspace{-2em}
+\subsection*{开源项目}
+
+\begin{itemize}
+	\parskip=0.1em
+
+	\item 
+	\headerrow
+		{\textbf{Libhdfs3}}
+		{\textbf{http://pivotalrd.github.io/libhdfs3}}
+	\\
+	{\emph{基于 Apache Hadoop RPC 协议与 HDFS 数据传输协议实现的 HDFS C/\CPP 客户端。}}
+	
+	\item 
+	\headerrow
+		{\textbf{CppStyle}}
+		{\textbf{http://wangzw.github.io/CppStyle}}
+	\\
+	{\emph{用于集成 clang-format 与 cpplint.py 的 Eclipse 插件，用于C/\CPP代码格式化与风格检查。}}
+
+\end{itemize}
+
+\vspace{-2em}
+\subsection*{教育经历}
+
+\begin{itemize}
+	\parskip=0.1em
+
+	\item 
+	\headerrow
+		{\textbf{中国人民大学}}
+		{\textbf{北京}}
+	\\
+	\headerrow
+		{\emph{工学硕士, 计算机软件与理论专业}}
+		{\emph{2008 -- 2011}}
+
+	\item 
+	\headerrow
+		{\textbf{中国人民大学}}
+		{\textbf{北京}}
+	\\
+	\headerrow
+		{\emph{工学学士, 计算机科学与技术专业}}
+		{\emph{2004 -- 2008}}
+
+\end{itemize}
+
+\vspace{-2em}
+\subsection*{发表论文}
+
+\begin{itemize}
+	\parskip=0.1em
+
+	\item 
+	\headerrow
+		{\textbf{HAWQ: a massively parallel processing SQL engine in Hadoop}}
+		{\textbf{2014年7月}}
+	\\
+	{\emph{Proceedings of the 2014 ACM SIGMOD international conference on Management of data}}
+\end{itemize}
+
+\vspace{-2em}
+\subsection*{专业技能}
+
+\begin{indentsection}{\parindent}
+\hyphenpenalty=1000
+\begin{description*}
+	\item[编程语言:]
+	C, \CPP, Java, Python, shell script, SQL
+	\item[参与开源项目:]
+	Apache HDFS, Baidu sofa-pbrpc
+	\item[Github 主页:]
+	https://github.com/wangzw
+\end{description*}
+\end{indentsection}
+
+\end{CJK}
+\end{document}

@@ -1,0 +1,189 @@
+% !TEX encoding = UTF-8 Unicode
+% resume.tex
+% vim:set ft=tex spell:
+
+\documentclass[10pt,letterpaper]{article}
+\usepackage[a4paper, top=2.0cm, left=2.5cm, right=2.0cm, bottom=2.0cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage{CJK}
+\usepackage{mdwlist}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage{tgpagella}
+\pagestyle{empty}
+\setlength{\tabcolsep}{0em}
+
+% indentsection style, used for sections that aren't already in lists
+% that need indentation to the level of all text in the document
+\newenvironment{indentsection}[1]%
+{\begin{list}{}%
+	{\setlength{\leftmargin}{#1}}%
+	\item[]%
+}
+{\end{list}}
+
+% opposite of above; bump a section back toward the left margin
+\newenvironment{unindentsection}[1]%
+{\begin{list}{}%
+	{\setlength{\leftmargin}{-0.5#1}}%
+	\item[]%
+}
+{\end{list}}
+
+% format two pieces of text, one left aligned and one right aligned
+\newcommand{\headerrow}[2]
+{\begin{tabular*}{\linewidth}{l@{\extracolsep{\fill}}r}
+	#1 &
+	#2 \\
+\end{tabular*}}
+
+% make "C++" look pretty when used in text by touching up the plus signs
+\newcommand{\CPP}
+{C\nolinebreak[4]\hspace{-.05em}\raisebox{.22ex}{\footnotesize\bf ++}}
+
+% and the actual content starts here
+\begin{document}
+\begin{CJK}{UTF8}{gbsn}
+
+\begin{center}
+{\LARGE \textbf{Zhanwei Wang (王占伟)}}
+
+\vspace{0.4em}
+
+(86) 138-1185-7720 
+wangzw@wangzw.org
+\end{center}
+
+\vspace{-2em}
+\subsection*{Experience}
+
+\begin{itemize}
+	\parskip=0.1em
+
+	\item
+	\headerrow
+		{\textbf{EMC Corporation / Pivotal Software, Inc.}}
+		{\textbf{Beijing, China}}
+	\\
+	\headerrow
+		{\emph{Senior Member of Technical Staff}}
+		{\emph{2011 -- present}}
+	\begin{itemize*}
+		\item Pivotal Software is a spin-out and joint venture of EMC Corporation and its subsidiary VMware that focus on cloud computing, big data and applications.
+		\item Create HAWQ from Greenplum Database code base. HAWQ is a massively parallel processing SQL engine sitting on top of HDFS.
+		\item Implement basic functionalities of HAWQ such as creating, dropping table, inserting and querying data.
+		\item Design and implement the metadata dispatching and transaction control module of HAWQ.
+		\item Integrate HAWQ and HDFS security mechanism.
+	\end{itemize*}
+
+	\item
+	\headerrow
+		{\textbf{Beijing BaseSoft Information Technologies Inc.}}
+		{\textbf{Beijing, China}}
+	\\
+	\headerrow
+		{\emph{Software Engineer, Intern}}
+		{\emph{2009 -- 2010}}
+	\begin{itemize*}
+		\item Kingbase is the top brand in Chinese database domain. 
+		\item In charge of improving the database kernel optimizer to solve complex query and improve TPCH benchmark test. By theoretical analysis and experimental testing, find out the problems and deficiencies of optimizer in the process of costs estimating. Based on the research results at home and abroad, design and implement the solution. 
+		\item The score of TPCH test is improved almost 50\% and the execution time of some complex queries is reduced nearly 10 times.
+	\end{itemize*}
+	
+	\item
+	\headerrow
+		{\textbf{Borqs International Holding Corp.}}
+		{\textbf{Beijing, China}}
+	\\
+	\headerrow
+		{\emph{Software Engineer, Intern}}
+		{\emph{2008 -- 2009}}
+	\begin{itemize*}
+		\item Borqs is a hi-tech enterprise dedicated to providing end-to-end software solutions for the whole industrial chain of mobile communications. 
+		\item Responsible for development of flash memory tools under windows platform. Communicate with users, collect user need, reconstruction original tools. Improve tools based on the feedback of users. Conduct training; introduce the features and usage of the tools. 
+		\item Improved the efficiency twice than that of the old one. These tools are widely used in development and cell phone manufacture in factory. 
+	\end{itemize*}
+\end{itemize}
+
+\vspace{-2em}
+\subsection*{Open Source Project}
+
+\begin{itemize}
+	\parskip=0.1em
+
+	\item 
+	\headerrow
+		{\textbf{Libhdfs3}}
+		{\textbf{http://pivotalrd.github.io/libhdfs3}}
+	\\
+	{\emph{A native C/\CPP\  HDFS client based on Apache Hadoop RPC protocol and HDFS data transfer protocol.}}
+	
+	\item 
+	\headerrow
+		{\textbf{CppStyle}}
+		{\textbf{http://wangzw.github.io/CppStyle}}
+	\\
+	{\emph{An Eclipse plugin that integrates clang-format and cpplint.py}}
+
+\end{itemize}
+
+\vspace{-2em}
+\subsection*{Education}
+
+\begin{itemize}
+	\parskip=0.1em
+
+	\item 
+	\headerrow
+		{\textbf{Renmin University of China}}
+		{\textbf{Beijing, China}}
+	\\
+	\headerrow
+		{\emph{Master of Engineering, Computer Software \& Theory}}
+		{\emph{2008 -- 2011}}
+
+	\item 
+	\headerrow
+		{\textbf{Renmin University of China}}
+		{\textbf{Beijing, China}}
+	\\
+	\headerrow
+		{\emph{Bachelor of Engineering, Computer Science}}
+		{\emph{2004 -- 2008}}
+
+\end{itemize}
+
+\vspace{-2em}
+\subsection*{Publications}
+
+\begin{itemize}
+	\parskip=0.1em
+
+	\item 
+	\headerrow
+		{\textbf{HAWQ: a massively parallel processing SQL engine in Hadoop}}
+		{\textbf{June, 2014}}
+	\\
+	{\emph{Proceedings of the 2014 ACM SIGMOD international conference on Management of data}}
+	\begin{itemize*}
+		\item HAWQ, developed at Pivotal, is a massively parallel processing SQL engine sitting on top of HDFS. As a hybrid of MPP database and Hadoop, it inherits the merits from both parties. It adopts a layered architecture and relies on the distributed file system for data replication and fault tolerance. In addition, it is standard SQL compliant, and unlike other SQL engines on Hadoop, it is fully transactional.
+	\end{itemize*}
+\end{itemize}
+
+\vspace{-2em}
+\subsection*{Technical Skills}
+
+\begin{indentsection}{\parindent}
+\hyphenpenalty=1000
+\begin{description*}
+	\item[Languages:]
+	C, \CPP, Java, Python, shell script, SQL
+	\item[Open Source Contributions:]
+	Apache HDFS, Baidu sofa-pbrpc
+	\item[Github:]
+	https://github.com/wangzw
+\end{description*}
+\end{indentsection}
+
+\end{CJK}
+\end{document}
