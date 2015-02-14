@@ -23,7 +23,7 @@
         <meta property="og:url" content="/signal-mallocfree-and-exit.html"/>
         <meta property="og:description" content="最近处理了一个bug，系统在特定情况下处理信号出现了死锁。 在这篇文章里，我会描述一下遇到的问题，解决方案和由此产生的一些思考 背景 这是一个多进程的系统，每个进程都只有一个线程工作。有一个主进程负责处理用户连接，创建子进程并将工作交给子进程处理。 进程之间通过共享内存共享一些数据和状态。 共享内存由锁保护形成临界区。 任何进程在临界区里发生错误，主进程都会向所有子进程发送SIGQUIT，导致所有子进程进入信号处理函数并最终调用exit()退出。 在所有子进程退出后，主进程会重新恢复共享内存并等待新的连接。 问题发生在系统内存不足的情况下。由于大量涌现的并发连接，系统内存被耗尽。 一个子进程在临界区内发生了OOM并抛出了错误。 主进程向所有子进程发出了SIGQUIT但是若干子进程产生了死锁并未退出。 最终导致整个系统无法恢复。 分析问题 我们先来分析一下进程死锁时的状态。 Thread 1 (Thread 0x7f550d5a8760 (LWP 133114)): #0 0x00000030514f4e6e in __lll_lock_wait_private () from /lib64/libc.so.6 #1 0x000000305147b914 in _L_lock_5002 () from /lib64/libc.so.6 ..."/>
         <meta property="article:published_time" content="2015-01-03" />
-            <meta property="article:section" content="blog" />
+            <meta property="article:section" content="misc" />
             <meta property="article:tag" content="signal" />
             <meta property="article:tag" content="deadlock" />
             <meta property="article:tag" content="exit" />
@@ -56,10 +56,7 @@ Home            </a>
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav">
                         <li class="active">
-                            <a href="/category/blog.html">Blog</a>
-                        </li>
-                        <li >
-                            <a href="/category/cata1.html">Cata1</a>
+                            <a href="/category/misc.html">Misc</a>
                         </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
@@ -138,7 +135,7 @@ Home            </a>
 
 <p>从调用栈我们可以看出，死锁进程在收到信号的时候正在尝试分配内存。
 信号处理函数最终调用exit()函数希望退出进程并通知父进程，但是 exit()函数触发了C++静态对象的析构函数。
-对象析构时尝试delete/free内部成员。由于malloc/free都不是信号安全的函数，malloc/free内部实现中会去加同一个锁，导致单x线程死锁发生。 
+对象析构时尝试delete/free内部成员。由于malloc/free都不是信号安全的函数，malloc/free内部实现中会去加同一个锁，导致单线程死锁发生。 
 问题的根源在于信号处理函数中调用了非信号安全的函数exit()。
 关于信号安全的函数可以参考<a href="http://man7.org/linux/man-pages/man7/signal.7.html">这个链接</a>。
 分析清楚问题产生的原因之后，解决问题就变得简单了，使用_exit()代替exit()即可。</p>
@@ -229,24 +226,14 @@ exit()与_exit()的一个显著的区别在于前者是一个C库函数定义在
                             signal, malloc/free and exit
                         </a>
                     </li>
-                    <li class="list-group-item">
-                        <a href="/my-first-review.html">
-                            My First Review
-                        </a>
-                    </li>
                 </ul>
             </li>
 
             <li class="list-group-item"><a href="/"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Categories</span></h4></a>
                 <ul class="list-group" id="categories">
                     <li class="list-group-item">
-                        <a href="/category/blog.html">
-                            <i class="fa fa-folder-open fa-lg"></i> blog
-                        </a>
-                    </li>
-                    <li class="list-group-item">
-                        <a href="/category/cata1.html">
-                            <i class="fa fa-folder-open fa-lg"></i> cata1
+                        <a href="/category/misc.html">
+                            <i class="fa fa-folder-open fa-lg"></i> misc
                         </a>
                     </li>
                 </ul>
@@ -260,13 +247,13 @@ exit()与_exit()的一个显著的区别在于前者是一个C库函数定义在
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="/tag/deadlock.html">
-                            deadlock
+                        <a href="/tag/signal.html">
+                            signal
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="/tag/signal.html">
-                            signal
+                        <a href="/tag/deadlock.html">
+                            deadlock
                         </a>
                     </li>
                 </ul>
