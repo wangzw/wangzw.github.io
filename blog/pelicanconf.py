@@ -78,6 +78,10 @@ DISPLAY_ARTICLE_INFO_ON_INDEX = True
 # Navbar
 BOOTSTRAP_NAVBAR_INVERSE = False
 
+# Banner
+BANNER = 'images/banner.jpg'
+#BANNER_SUBTITLE = u'技术改变生活'
+
 # Tipue Search
 #DIRECT_TEMPLATES = (('search',))
 
