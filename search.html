@@ -2,7 +2,8 @@
 <html lang="cn"
 >
 <head>
-    <title>Tags - 攻城狮的生活</title>
+    <title>Search - 攻城狮的生活
+</title>
     <!-- Using the latest rendering mode for IE -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
@@ -66,52 +67,8 @@
 <div class="container">
     <div class="row">
         <div class="col-sm-9">
-    <ol class="breadcrumb">
-        <li><a href="" title="攻城狮的生活"><i class="fa fa-home fa-lg"></i></a></li>
-        <li class="active">Tags</li>
-    </ol>
 
-    <section id="tags">
-        <h1>Tags for 攻城狮的生活</h1>
-        <div class="panel-group" id="accordion">            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h4 class="panel-title">
-                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse-deadlock">deadlock <span class="badge pull-right">1</span></a>
-                    </h4>
-                </div>
-                <div id="collapse-deadlock" class="panel-collapse collapse">
-                    <div class="panel-body">
-                        <p><span class="categories-timestamp"><time datetime="2015-01-03T10:20:00+08:00">Sat 03 January 2015</time></span> <a href="/signal-mallocfree-and-exit.html">signal, malloc/free and exit</a></p>
-                    </div>
-                </div>
-            </div>
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h4 class="panel-title">
-                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse-exit">exit <span class="badge pull-right">1</span></a>
-                    </h4>
-                </div>
-                <div id="collapse-exit" class="panel-collapse collapse">
-                    <div class="panel-body">
-                        <p><span class="categories-timestamp"><time datetime="2015-01-03T10:20:00+08:00">Sat 03 January 2015</time></span> <a href="/signal-mallocfree-and-exit.html">signal, malloc/free and exit</a></p>
-                    </div>
-                </div>
-            </div>
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h4 class="panel-title">
-                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse-signal">signal <span class="badge pull-right">1</span></a>
-                    </h4>
-                </div>
-                <div id="collapse-signal" class="panel-collapse collapse">
-                    <div class="panel-body">
-                        <p><span class="categories-timestamp"><time datetime="2015-01-03T10:20:00+08:00">Sat 03 January 2015</time></span> <a href="/signal-mallocfree-and-exit.html">signal, malloc/free and exit</a></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </section>
+<div id="tipue_search_content"></div>
         </div>
         <div class="col-sm-3" id="sidebar">
             <aside>
@@ -250,5 +207,18 @@
     </script>
     <!-- End Disqus Code -->
 
+    <link href="/theme/tipuesearch/tipuesearch.css" rel="stylesheet">
+    <script type="text/javascript" src="/theme/tipuesearch/tipuesearch_set.js"></script>
+    <script type="text/javascript" src="/theme/tipuesearch/tipuesearch.min.js"></script>
+    <script>
+    $(document).ready(function() {
+      $('#tipue_search_input').tipuesearch({
+        'mode' : 'json',
+        'show': 10,
+        'newWindow': false,
+        'contentLocation': 'tipuesearch_content.json'
+      });
+    });
+    </script>
 </body>
 </html>
