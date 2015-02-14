@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*- #
 from __future__ import unicode_literals
 
-AUTHOR = u'Zhanwei Wang'
+AUTHOR = u'Zhanwei Wang (王占伟)'
 SITENAME = u'攻城狮的生活'
 SITEURL = ''
 
@@ -36,7 +36,9 @@ SOCIAL = (('Github', 'https://github.com/wangzw'),
 
 # Disous comments
 DISQUS_SITENAME = 'wangzw'
-DISQUS_NO_ID = True
+DISQUS_NO_ID = False
+DISQUS_ID_PREFIX_SLUG = True
+DISQUS_DISPLAY_COUNTS = True
 
 # display
 DEFAULT_PAGINATION = 10
@@ -50,10 +52,12 @@ FAVICON = 'images/favicon.jpg'
 # Side Bar
 DISPLAY_CATEGORIES_ON_SIDEBAR = True
 DISPLAY_RECENT_POSTS_ON_SIDEBAR = True
+DISPLAY_TAGS_ON_SIDEBAR = True
 
 # Github
 GITHUB_USER = 'wangzw'
 GITHUB_SKIP_FORK = True
+GITHUB_SHOW_USER_LINK = False
 
 # Menu
 DISPLAY_PAGES_ON_MENU = True
@@ -67,6 +71,15 @@ SHOW_ARTICLE_AUTHOR = True
 SHOW_ARTICLE_CATEGORY = True
 DISPLAY_BREADCRUMBS = True
 DISPLAY_CATEGORY_IN_BREADCRUMBS = True
+
+# Index
+DISPLAY_ARTICLE_INFO_ON_INDEX = True
+
+# Navbar
+BOOTSTRAP_NAVBAR_INVERSE = False
+
+# Tipue Search
+#DIRECT_TEMPLATES = (('search',))
 
 # Others
 LOAD_CONTENT_CACHE = False
