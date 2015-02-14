@@ -12,7 +12,7 @@
     <link href="/images/favicon.jpg" rel="icon">
 
 
-    <meta name="author" content="Zhanwei Wang" />
+    <meta name="author" content="Zhanwei Wang (王占伟)" />
     <meta name="keywords" content="signal" />
 
     <!-- Open Graph tags -->
@@ -69,6 +69,27 @@
 
             <article>
                 <h2><a href="/signal-mallocfree-and-exit.html">signal, malloc/free and exit</a></h2>
+                    <div class="well well-sm">
+<footer class="post-info">
+    <span class="label label-default">Date</span>
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2015-01-03T10:20:00+08:00"> Sat 03 January 2015</time>
+    </span>
+            <span class="label label-default">By</span>
+            <a href="/author/zhanwei-wang-wang-zhan-wei.html"><i class="fa fa-user"></i> Zhanwei Wang (王占伟)</a>
+
+        <span class="label label-default">Category</span>
+        <a href="/category/ji-zhu-wen-zhang.html">技术文章</a>
+
+
+<span class="label label-default">Tags</span>
+	<a href="/tag/signal.html">signal</a>
+        /
+	<a href="/tag/deadlock.html">deadlock</a>
+        /
+	<a href="/tag/exit.html">exit</a>
+    
+</footer><!-- /.post-info -->                    </div>
                 <div class="summary"><p><img alt="Deadlock" src="/images/20150214110313-deadlock.png" /></p>
 <p>最近处理了一个bug，系统在特定情况下处理信号出现了死锁。
 在这篇文章里，我会描述一下遇到的问题，解决方案和由此产生的一些思考。</p>
@@ -87,7 +108,7 @@
 <div class="highlight"><pre><span class="nx">Thread</span> <span class="mi">1</span> <span class="p">(</span><span class="nx">Thread</span> <span class="mh">0x7f550d5a8760</span> <span class="p">(</span><span class="nx">LWP</span> <span class="mi">133114</span><span class="p">))</span><span class="o">:</span>
 <span class="err">#</span><span class="mi">0</span>  <span class="mh">0x00000030514f4e6e</span> <span class="k">in</span> <span class="nx">__lll_lock_wait_private</span> <span class="p">()</span> <span class="nx">from</span> <span class="o">/</span><span class="nx">lib64</span><span class="o">/</span><span class="nx">libc</span><span class="p">.</span><span class="nx">so</span><span class="p">.</span><span class="mi">6</span>
 <span class="err">#</span><span class="mi">1</span>  <span class="mh">0x000000305147b914</span> <span class="k">in</span> <span class="nx">_L_lock_5002</span> <span class="p">()</span> <span class="nx">from</span> <span class="o">/</span><span class="nx">lib64</span><span class="o">/</span><span class="nx">libc</span><span class="p">.</span><span class="nx">so</span><span class="p">.</span><span class="mi">6 ...</span></pre></div>
-                    <a class="btn btn-default btn-xs" href="/signal-mallocfree-and-exit.html">more ...</a>
+<p><small><a href="/signal-mallocfree-and-exit.html#disqus_thread" data-disqus-identifier="2015-01-signal-mallocfree-and-exit">View comments</a>.</small></p>                    <a class="btn btn-default btn-xs" href="/signal-mallocfree-and-exit.html">more ...</a>
                 </div>
             </article>
             <hr/>
@@ -150,6 +171,7 @@
         <div id="gh_repos">
             <p class="list-group-item">Status updating...</p>
         </div>
+            <a href="https://github.com/wangzw">@wangzw</a> on GitHub
     </li>
     <li class="list-group-item"><h4><i class="fa fa-external-link-square fa-lg"></i><span class="icon-label">Links</span></h4>
       <ul class="list-group" id="links">
@@ -175,7 +197,7 @@
    <div class="container">
       <hr>
       <div class="row">
-         <div class="col-xs-10">&copy; 2015 Zhanwei Wang
+         <div class="col-xs-10">&copy; 2015 Zhanwei Wang (王占伟)
             &middot; Powered by <a href="https://github.com/DandyDev/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
             <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
             <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>
