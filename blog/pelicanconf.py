@@ -23,7 +23,7 @@ AUTHOR_FEED_ATOM = None
 AUTHOR_FEED_RSS = None
 
 # Blogroll
-LINKS = (('Pelican', 'http://getpelican.com/'),
+LINKS = (('Pelican Doc', 'docs.getpelican.com'),
          )
 
 # Social widget
