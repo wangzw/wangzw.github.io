@@ -7,9 +7,9 @@ SITENAME = u'Home'
 SITEURL = ''
 
 PATH = 'content'
+STATIC_PATHS = ['images', 'pdfs']
 
 TIMEZONE = 'Asia/Shanghai'
-
 DEFAULT_LANG = u'cn'
 
 # Feed generation is usually not desired when developing
@@ -21,8 +21,6 @@ AUTHOR_FEED_RSS = None
 
 # Blogroll
 LINKS = (('Pelican', 'http://getpelican.com/'),
-         ('Python.org', 'http://python.org/'),
-         ('Jinja2', 'http://jinja.pocoo.org/'),
          )
 
 # Social widget
