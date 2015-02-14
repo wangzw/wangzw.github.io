@@ -34,20 +34,37 @@ SOCIAL = (('Github', 'https://github.com/wangzw'),
           ('Weibo', 'http://weibo.com/u/2064676750')
           )
 
+# Disous comments
+DISQUS_SITENAME = 'wangzw'
+DISQUS_NO_ID = True
+
+# display
 DEFAULT_PAGINATION = 10
 
-LOAD_CONTENT_CACHE = False
-DELETE_OUTPUT_DIRECTORY = True
+# Themes
 THEME = 'themes/pelican-bootstrap3'
+#BOOTSTRAP_THEME = 'readable-old'
+BOOTSTRAP_THEME = 'flatly'
 FAVICON = 'images/favicon.jpg'
+
+# Side Bar
 DISPLAY_CATEGORIES_ON_SIDEBAR = True
 DISPLAY_RECENT_POSTS_ON_SIDEBAR = True
-DISQUS_NO_ID = True
+
+# Github
 GITHUB_USER = 'wangzw'
 GITHUB_SKIP_FORK = True
-BOOTSTRAP_THEME = 'readable-old'
+
+# Menu
+DISPLAY_PAGES_ON_MENU = True
+DISPLAY_CATEGORIES_ON_MENU = True
+
+# Tags
 DISPLAY_TAGS_INLINE = True
-DISQUS_SITENAME = 'wangzw'
+
+# Others
+LOAD_CONTENT_CACHE = False
+DELETE_OUTPUT_DIRECTORY = True
 
 # Uncomment following line if you want document-relative URLs when developing
 #RELATIVE_URLS = True
