@@ -2,6 +2,10 @@
 # -*- coding: utf-8 -*- #
 from __future__ import unicode_literals
 
+PLUGIN_PATHS = ["plugins/pelican-plugins"]
+
+PLUGINS = ['tipue_search', ]
+
 AUTHOR = u'Zhanwei Wang (王占伟)'
 SITENAME = u'攻城狮的生活'
 SITEURL = ''
@@ -83,8 +87,14 @@ BANNER = 'images/banner.jpg'
 #BANNER_SUBTITLE = u'技术改变生活'
 
 # Tipue Search
-#DIRECT_TEMPLATES = (('search',))
-
+#DIRECT_TEMPLATES = ('index', 'archives')
+DIRECT_TEMPLATES = (
+    ('index',
+     'tags',
+     'categories',
+     'authors',
+     'archives',
+     'search'))
 # Others
 LOAD_CONTENT_CACHE = False
 DELETE_OUTPUT_DIRECTORY = True
