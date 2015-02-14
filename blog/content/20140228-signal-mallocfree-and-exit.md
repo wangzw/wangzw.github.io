@@ -39,7 +39,7 @@ tags: signal,deadlock,exit
 
 从调用栈我们可以看出，死锁进程在收到信号的时候正在尝试分配内存。
 信号处理函数最终调用exit()函数希望退出进程并通知父进程，但是 exit()函数触发了C++静态对象的析构函数。
-对象析构时尝试delete/free内部成员。由于malloc/free都不是信号安全的函数，malloc/free内部实现中会去加同一个锁，导致单x线程死锁发生。 
+对象析构时尝试delete/free内部成员。由于malloc/free都不是信号安全的函数，malloc/free内部实现中会去加同一个锁，导致单线程死锁发生。 
 问题的根源在于信号处理函数中调用了非信号安全的函数exit()。
 关于信号安全的函数可以参考[这个链接](http://man7.org/linux/man-pages/man7/signal.7.html)。
 分析清楚问题产生的原因之后，解决问题就变得简单了，使用_exit()代替exit()即可。
