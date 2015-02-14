@@ -44,6 +44,7 @@ DISQUS_NO_ID = True
 GITHUB_USER = 'wangzw'
 GITHUB_SKIP_FORK = True
 BOOTSTRAP_THEME = 'readable-old'
+DISPLAY_TAGS_INLINE = True
 
 # Uncomment following line if you want document-relative URLs when developing
 #RELATIVE_URLS = True
