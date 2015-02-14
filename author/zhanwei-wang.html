@@ -23,7 +23,7 @@
 
 
     <!-- Bootstrap -->
-        <link rel="stylesheet" href="/theme/css/bootstrap.readable-old.min.css" type="text/css"/>
+        <link rel="stylesheet" href="/theme/css/bootstrap.flatly.min.css" type="text/css"/>
     <link href="/theme/css/font-awesome.min.css" rel="stylesheet">
 
     <link href="/theme/css/pygments/native.css" rel="stylesheet">
@@ -68,7 +68,7 @@
                 <h2><a href="/signal-mallocfree-and-exit.html">signal, malloc/free and exit</a></h2>
                 <div class="summary"><p><img alt="Deadlock" src="/images/20150214110313-deadlock.png" /></p>
 <p>最近处理了一个bug，系统在特定情况下处理信号出现了死锁。
-在这篇文章里，我会描述一下遇到的问题，解决方案和由此产生的一些思考</p>
+在这篇文章里，我会描述一下遇到的问题，解决方案和由此产生的一些思考。</p>
 <h2>背景</h2>
 <p>这是一个多进程的系统，每个进程都只有一个线程工作。有一个主进程负责处理用户连接，创建子进程并将工作交给子进程处理。
 进程之间通过共享内存共享一些数据和状态。
