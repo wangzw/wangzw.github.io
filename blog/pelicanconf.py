@@ -7,7 +7,10 @@ SITENAME = u'Home'
 SITEURL = ''
 
 PATH = 'content'
-STATIC_PATHS = ['images', 'pdfs']
+STATIC_PATHS = ['images', 'extra/CNAME']
+EXTRA_PATH_METADATA = {
+    'extra/CNAME': {'path': 'CNAME'},
+}
 
 TIMEZONE = 'Asia/Shanghai'
 DEFAULT_LANG = u'cn'
