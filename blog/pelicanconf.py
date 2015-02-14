@@ -4,7 +4,9 @@ from __future__ import unicode_literals
 
 PLUGIN_PATHS = ["plugins/pelican-plugins"]
 
-PLUGINS = ['tipue_search', ]
+PLUGINS = ['tipue_search', 'liquid_tags.img', 'liquid_tags.video',
+           'liquid_tags.youtube', 'liquid_tags.vimeo',
+           'liquid_tags.include_code', 'liquid_tags.notebook']
 
 AUTHOR = u'Zhanwei Wang (王占伟)'
 SITENAME = u'攻城狮的生活'
