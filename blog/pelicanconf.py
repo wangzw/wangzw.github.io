@@ -23,7 +23,9 @@ AUTHOR_FEED_ATOM = None
 AUTHOR_FEED_RSS = None
 
 # Blogroll
-LINKS = (('Pelican Doc', 'docs.getpelican.com'),
+LINKS = (('Pelican Doc', 'http://docs.getpelican.com'),
+         ('<img src="https://camo.githubusercontent.com/a4e668f35df0e0059b76dc9bc1eb39895155d1a7/68747470733a2f2f7472617669732d63692e6f72672f77616e677a772f77616e677a772e6769746875622e696f2e7376673f6272616e63683d636f6465" alt="Build Status" data-canonical-src="https://travis-ci.org/wangzw/wangzw.github.io.svg?branch=code" style="max-width:100%;">',
+          'https://travis-ci.org/wangzw/wangzw.github.io'),
          )
 
 # Social widget
