@@ -25,6 +25,8 @@ LINKS = (('Pelican', 'http://getpelican.com/'),
 
 # Social widget
 SOCIAL = (('Github', 'https://github.com/wangzw'),
+          ('Linkedin', 'http://cn.linkedin.com/in/wangzw'),
+          ('Weibo', 'http://weibo.com/u/2064676750')
           )
 
 DEFAULT_PAGINATION = 10
