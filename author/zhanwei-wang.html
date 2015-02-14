@@ -48,6 +48,9 @@ Home            </a>
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav">
                         <li >
+                            <a href="/category/blog.html">Blog</a>
+                        </li>
+                        <li >
                             <a href="/category/cata1.html">Cata1</a>
                         </li>
             </ul>
@@ -64,6 +67,30 @@ Home            </a>
     <div class="row">
         <div class="col-sm-9">
 
+            <article>
+                <h2><a href="/signal-mallocfree-and-exit.html">signal, malloc/free and exit</a></h2>
+                <div class="summary"><p><img alt="Deadlock" src="/images/20150214110313-deadlock.png" /></p>
+<p>最近处理了一个bug，系统在特定情况下处理信号出现了死锁。
+在这篇文章里，我会描述一下遇到的问题，解决方案和由此产生的一些思考</p>
+<h2>背景</h2>
+<p>这是一个多进程的系统，每个进程都只有一个线程工作。有一个主进程负责处理用户连接，创建子进程并将工作交给子进程处理。
+进程之间通过共享内存共享一些数据和状态。
+共享内存由锁保护形成临界区。
+任何进程在临界区里发生错误，主进程都会向所有子进程发送SIGQUIT，导致所有子进程进入信号处理函数并最终调用exit()退出。
+在所有子进程退出后，主进程会重新恢复共享内存并等待新的连接。 
+问题发生在系统内存不足的情况下。由于大量涌现的并发连接，系统内存被耗尽。
+一个子进程在临界区内发生了OOM并抛出了错误。
+主进程向所有子进程发出了SIGQUIT但是若干子进程产生了死锁并未退出。
+最终导致整个系统无法恢复。 </p>
+<h2>分析问题</h2>
+<p>我们先来分析一下进程死锁时的状态。 </p>
+<div class="highlight"><pre><span class="nx">Thread</span> <span class="mi">1</span> <span class="p">(</span><span class="nx">Thread</span> <span class="mh">0x7f550d5a8760</span> <span class="p">(</span><span class="nx">LWP</span> <span class="mi">133114</span><span class="p">))</span><span class="o">:</span>
+<span class="err">#</span><span class="mi">0</span>  <span class="mh">0x00000030514f4e6e</span> <span class="k">in</span> <span class="nx">__lll_lock_wait_private</span> <span class="p">()</span> <span class="nx">from</span> <span class="o">/</span><span class="nx">lib64</span><span class="o">/</span><span class="nx">libc</span><span class="p">.</span><span class="nx">so</span><span class="p">.</span><span class="mi">6</span>
+<span class="err">#</span><span class="mi">1</span>  <span class="mh">0x000000305147b914</span> <span class="k">in</span> <span class="nx">_L_lock_5002</span> <span class="p">()</span> <span class="nx">from</span> <span class="o">/</span><span class="nx">lib64</span><span class="o">/</span><span class="nx">libc</span><span class="p">.</span><span class="nx">so</span><span class="p">.</span><span class="mi">6 ...</span></pre></div>
+                    <a class="btn btn-default btn-xs" href="/signal-mallocfree-and-exit.html">more ...</a>
+                </div>
+            </article>
+            <hr/>
             <article>
                 <h2><a href="/my-first-review.html">My First Review</a></h2>
                 <div class="summary"><p>Following is a review of my favorite mechanical keyboard.hehe 中文</p>
@@ -87,6 +114,11 @@ Home            </a>
             <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
                 <ul class="list-group" id="recentposts">
                     <li class="list-group-item">
+                        <a href="/signal-mallocfree-and-exit.html">
+                            signal, malloc/free and exit
+                        </a>
+                    </li>
+                    <li class="list-group-item">
                         <a href="/my-first-review.html">
                             My First Review
                         </a>
@@ -97,6 +129,11 @@ Home            </a>
             <li class="list-group-item"><a href="/"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Categories</span></h4></a>
                 <ul class="list-group" id="categories">
                     <li class="list-group-item">
+                        <a href="/category/blog.html">
+                            <i class="fa fa-folder-open fa-lg"></i> blog
+                        </a>
+                    </li>
+                    <li class="list-group-item">
                         <a href="/category/cata1.html">
                             <i class="fa fa-folder-open fa-lg"></i> cata1
                         </a>
@@ -106,6 +143,21 @@ Home            </a>
 
             <li class="list-group-item"><a href="/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
                 <ul class="list-group " id="tags">
+                    <li class="list-group-item tag-4">
+                        <a href="/tag/signal.html">
+                            signal
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="/tag/deadlock.html">
+                            deadlock
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="/tag/exit.html">
+                            exit
+                        </a>
+                    </li>
                 </ul>
             </li>
 
@@ -121,16 +173,6 @@ Home            </a>
                 Pelican
             </a>
         </li>
-        <li class="list-group-item">
-            <a href="http://python.org/" target="_blank">
-                Python.org
-            </a>
-        </li>
-        <li class="list-group-item">
-            <a href="http://jinja.pocoo.org/" target="_blank">
-                Jinja2
-            </a>
-        </li>
       </ul>
     </li>
     </ul>
@@ -143,7 +185,7 @@ Home            </a>
    <div class="container">
       <hr>
       <div class="row">
-         <div class="col-xs-10">&copy; 2010 Zhanwei Wang
+         <div class="col-xs-10">&copy; 2015 Zhanwei Wang
             &middot; Powered by <a href="https://github.com/DandyDev/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
             <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
             <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>
