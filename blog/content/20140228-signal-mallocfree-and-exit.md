@@ -1,6 +1,7 @@
 title: signal, malloc/free and exit
 date: 2015-1-03 10:20
 tags: signal,deadlock,exit
+category: 技术文章
 
 ![Deadlock]({filename}/images/20150214110313-deadlock.png)
 
