@@ -278,7 +278,7 @@ init_mathjax();
 <div class="highlight"><pre><span class="nx">Thread</span> <span class="mi">1</span> <span class="p">(</span><span class="nx">Thread</span> <span class="mh">0x7f550d5a8760</span> <span class="p">(</span><span class="nx">LWP</span> <span class="mi">133114</span><span class="p">))</span><span class="o">:</span>
 <span class="err">#</span><span class="mi">0</span>  <span class="mh">0x00000030514f4e6e</span> <span class="k">in</span> <span class="nx">__lll_lock_wait_private</span> <span class="p">()</span> <span class="nx">from</span> <span class="o">/</span><span class="nx">lib64</span><span class="o">/</span><span class="nx">libc</span><span class="p">.</span><span class="nx">so</span><span class="p">.</span><span class="mi">6</span>
 <span class="err">#</span><span class="mi">1</span>  <span class="mh">0x000000305147b914</span> <span class="k">in</span> <span class="nx">_L_lock_5002</span> <span class="p">()</span> <span class="nx">from</span> <span class="o">/</span><span class="nx">lib64</span><span class="o">/</span><span class="nx">libc</span><span class="p">.</span><span class="nx">so</span><span class="p">.</span><span class="mi">6 ...</span></pre></div>
-<p><small><a href="http://www.wangzw.org/signal-mallocfree-and-exit.html#disqus_thread" data-disqus-identifier="2015-01-signal-mallocfree-and-exit">View comments</a>.</small></p>                    <a class="btn btn-default btn-xs" href="http://www.wangzw.org/signal-mallocfree-and-exit.html">more ...</a>
+<p><small><a href="http://www.wangzw.org/signal-mallocfree-and-exit.html#ds-thread" data-count-type="comments" data-thread-key="2015-01-signal-mallocfree-and-exit">View comments</a>.</small></p>                    <a class="btn btn-default btn-xs" href="http://www.wangzw.org/signal-mallocfree-and-exit.html">more ...</a>
                 </div>
             </article>
             <hr/>
@@ -405,21 +405,20 @@ init_mathjax();
     </script>
     <script src="http://www.wangzw.org/theme/js/github.js" type="text/javascript"></script>
     <!-- End GitHub JS Code -->
-    <!-- Disqus -->
-    <script type="text/javascript">
-        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-        var disqus_shortname = 'wangzw'; // required: replace example with your forum shortname
-
-        /* * * DON'T EDIT BELOW THIS LINE * * */
-        (function () {
-            var s = document.createElement('script');
-            s.async = true;
-            s.type = 'text/javascript';
-            s.src = '//' + disqus_shortname + '.disqus.com/count.js';
-            (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
-        }());
-    </script>
-    <!-- End Disqus Code -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"wangzw"};
+		(function() {
+			var ds = document.createElement('script');
+			ds.type = 'text/javascript';
+			ds.async = true;
+			ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+			ds.charset = 'UTF-8';
+			(document.getElementsByTagName('head')[0] 
+			 || document.getElementsByTagName('body')[0]).appendChild(ds);
+		})();
+		</script>
+	<!-- 多说公共JS代码 end -->
 
 </body>
 </html>
