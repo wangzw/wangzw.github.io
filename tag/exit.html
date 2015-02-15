@@ -165,7 +165,7 @@ init_mathjax = function() {
 }
 init_mathjax();
 </script>
-    <link href="/images/favicon.jpg" rel="icon">
+    <link href="http://www.wangzw.org/images/favicon.jpg" rel="icon">
 
 
     <meta name="author" content="Zhanwei Wang (王占伟)" />
@@ -175,18 +175,20 @@ init_mathjax();
         <meta property="og:site_name" content="攻城狮的生活" />
         <meta property="og:type" content="website"/>
         <meta property="og:title" content="攻城狮的生活"/>
-        <meta property="og:url" content=""/>
+        <meta property="og:url" content="http://www.wangzw.org"/>
         <meta property="og:description" content="攻城狮的生活"/>
 
 
     <!-- Bootstrap -->
-        <link rel="stylesheet" href="/theme/css/bootstrap.flatly.min.css" type="text/css"/>
-    <link href="/theme/css/font-awesome.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="http://www.wangzw.org/theme/css/bootstrap.flatly.min.css" type="text/css"/>
+    <link href="http://www.wangzw.org/theme/css/font-awesome.min.css" rel="stylesheet">
 
-    <link href="/theme/css/pygments/native.css" rel="stylesheet">
-    <link href="/theme/tipuesearch/tipuesearch.css" rel="stylesheet">
-    <link rel="stylesheet" href="/theme/css/style.css" type="text/css"/>
+    <link href="http://www.wangzw.org/theme/css/pygments/native.css" rel="stylesheet">
+    <link href="http://www.wangzw.org/theme/tipuesearch/tipuesearch.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://www.wangzw.org/theme/css/style.css" type="text/css"/>
 
+        <link href="http://www.wangzw.org/feeds/all.atom.xml" type="application/atom+xml" rel="alternate"
+              title="攻城狮的生活 ATOM Feed"/>
 
 </head>
 <body>
@@ -200,7 +202,7 @@ init_mathjax();
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a href="/" class="navbar-brand">
+            <a href="http://www.wangzw.org/" class="navbar-brand">
 攻城狮的生活            </a>
         </div>
         <div class="collapse navbar-collapse navbar-ex1-collapse">
@@ -212,7 +214,7 @@ init_mathjax();
                   <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input" required>
                 </form></span>
               </li>
-              <li><a href="/archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
+              <li><a href="http://www.wangzw.org/archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
             </ul>
         </div>
         <!-- /.navbar-collapse -->
@@ -224,13 +226,13 @@ init_mathjax();
     <div class="row">
         <div class="col-sm-9">
     <ol class="breadcrumb">
-        <li><a href="" title="攻城狮的生活"><i class="fa fa-home fa-lg"></i></a></li>
-        <li><a href="/" title="Tags">Tags</a></li>
+        <li><a href="http://www.wangzw.org" title="攻城狮的生活"><i class="fa fa-home fa-lg"></i></a></li>
+        <li><a href="http://www.wangzw.org/" title="Tags">Tags</a></li>
         <li class="active">exit</li>
     </ol>
 
             <article>
-                <h2><a href="/signal-mallocfree-and-exit.html">signal, malloc/free and exit</a></h2>
+                <h2><a href="http://www.wangzw.org/signal-mallocfree-and-exit.html">signal, malloc/free and exit</a></h2>
                     <div class="well well-sm">
 <footer class="post-info">
     <span class="label label-default">Date</span>
@@ -238,21 +240,21 @@ init_mathjax();
         <i class="fa fa-calendar"></i><time datetime="2015-01-03T10:20:00+08:00"> Sat 03 January 2015</time>
     </span>
             <span class="label label-default">By</span>
-            <a href="/author/zhanwei-wang-wang-zhan-wei.html"><i class="fa fa-user"></i> Zhanwei Wang (王占伟)</a>
+            <a href="http://www.wangzw.org/author/zhanwei-wang-wang-zhan-wei.html"><i class="fa fa-user"></i> Zhanwei Wang (王占伟)</a>
 
         <span class="label label-default">Category</span>
-        <a href="/category/ji-zhu-wen-zhang.html">技术文章</a>
+        <a href="http://www.wangzw.org/category/ji-zhu-wen-zhang.html">技术文章</a>
 
 
 <span class="label label-default">Tags</span>
-	<a href="/tag/signal.html">signal</a>
+	<a href="http://www.wangzw.org/tag/signal.html">signal</a>
         /
-	<a href="/tag/deadlock.html">deadlock</a>
+	<a href="http://www.wangzw.org/tag/deadlock.html">deadlock</a>
         /
-	<a href="/tag/exit.html">exit</a>
+	<a href="http://www.wangzw.org/tag/exit.html">exit</a>
     
 </footer><!-- /.post-info -->                    </div>
-                <div class="summary"><p><img alt="Deadlock" src="/images/20150214110313-deadlock.png" /></p>
+                <div class="summary"><p><img alt="Deadlock" src="http://www.wangzw.org/images/20150214110313-deadlock.png" /></p>
 <p>最近处理了一个bug，系统在特定情况下处理信号出现了死锁。
 在这篇文章里，我会描述一下遇到的问题，解决方案和由此产生的一些思考。</p>
 <h2>背景</h2>
@@ -270,7 +272,7 @@ init_mathjax();
 <div class="highlight"><pre><span class="nx">Thread</span> <span class="mi">1</span> <span class="p">(</span><span class="nx">Thread</span> <span class="mh">0x7f550d5a8760</span> <span class="p">(</span><span class="nx">LWP</span> <span class="mi">133114</span><span class="p">))</span><span class="o">:</span>
 <span class="err">#</span><span class="mi">0</span>  <span class="mh">0x00000030514f4e6e</span> <span class="k">in</span> <span class="nx">__lll_lock_wait_private</span> <span class="p">()</span> <span class="nx">from</span> <span class="o">/</span><span class="nx">lib64</span><span class="o">/</span><span class="nx">libc</span><span class="p">.</span><span class="nx">so</span><span class="p">.</span><span class="mi">6</span>
 <span class="err">#</span><span class="mi">1</span>  <span class="mh">0x000000305147b914</span> <span class="k">in</span> <span class="nx">_L_lock_5002</span> <span class="p">()</span> <span class="nx">from</span> <span class="o">/</span><span class="nx">lib64</span><span class="o">/</span><span class="nx">libc</span><span class="p">.</span><span class="nx">so</span><span class="p">.</span><span class="mi">6 ...</span></pre></div>
-<p><small><a href="/signal-mallocfree-and-exit.html#disqus_thread" data-disqus-identifier="2015-01-signal-mallocfree-and-exit">View comments</a>.</small></p>                    <a class="btn btn-default btn-xs" href="/signal-mallocfree-and-exit.html">more ...</a>
+<p><small><a href="http://www.wangzw.org/signal-mallocfree-and-exit.html#disqus_thread" data-disqus-identifier="2015-01-signal-mallocfree-and-exit">View comments</a>.</small></p>                    <a class="btn btn-default btn-xs" href="http://www.wangzw.org/signal-mallocfree-and-exit.html">more ...</a>
                 </div>
             </article>
             <hr/>
@@ -292,37 +294,37 @@ init_mathjax();
             <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
                 <ul class="list-group" id="recentposts">
                     <li class="list-group-item">
-                        <a href="/signal-mallocfree-and-exit.html">
+                        <a href="http://www.wangzw.org/signal-mallocfree-and-exit.html">
                             signal, malloc/free and exit
                         </a>
                     </li>
                 </ul>
             </li>
 
-            <li class="list-group-item"><a href="/"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Categories</span></h4></a>
+            <li class="list-group-item"><a href="http://www.wangzw.org/"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Categories</span></h4></a>
                 <ul class="list-group" id="categories">
                     <li class="list-group-item">
-                        <a href="/category/ji-zhu-wen-zhang.html">
+                        <a href="http://www.wangzw.org/category/ji-zhu-wen-zhang.html">
                             <i class="fa fa-folder-open fa-lg"></i> 技术文章
                         </a>
                     </li>
                 </ul>
             </li>
 
-            <li class="list-group-item"><a href="/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+            <li class="list-group-item"><a href="http://www.wangzw.org/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
                 <ul class="list-group list-inline tagcloud" id="tags">
                     <li class="list-group-item tag-4">
-                        <a href="/tag/deadlock.html">
+                        <a href="http://www.wangzw.org/tag/deadlock.html">
                             deadlock
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="/tag/exit.html">
+                        <a href="http://www.wangzw.org/tag/exit.html">
                             exit
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="/tag/signal.html">
+                        <a href="http://www.wangzw.org/tag/signal.html">
                             signal
                         </a>
                     </li>
@@ -367,22 +369,22 @@ init_mathjax();
       </div>
    </div>
 </footer>
-<script src="/theme/js/jquery.min.js"></script>
+<script src="http://www.wangzw.org/theme/js/jquery.min.js"></script>
 
 <!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="/theme/js/bootstrap.min.js"></script>
+<script src="http://www.wangzw.org/theme/js/bootstrap.min.js"></script>
 
 <!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
-<script src="/theme/js/respond.min.js"></script>
+<script src="http://www.wangzw.org/theme/js/respond.min.js"></script>
 
-    <script src="/theme/js/bodypadding.js"></script>
+    <script src="http://www.wangzw.org/theme/js/bodypadding.js"></script>
     <!-- GitHub JS -->
     <script type="text/javascript">
         $(document).ready(function () {
             if (!window.jXHR) {
                 var jxhr = document.createElement('script');
                 jxhr.type = 'text/javascript';
-                jxhr.src = '/theme/js/jXHR.js';
+                jxhr.src = 'http://www.wangzw.org/theme/js/jXHR.js';
                 var s = document.getElementsByTagName('script')[0];
                 s.parentNode.insertBefore(jxhr, s);
             }
@@ -395,7 +397,7 @@ init_mathjax();
             });
         });
     </script>
-    <script src="/theme/js/github.js" type="text/javascript"></script>
+    <script src="http://www.wangzw.org/theme/js/github.js" type="text/javascript"></script>
     <!-- End GitHub JS Code -->
     <!-- Disqus -->
     <script type="text/javascript">
