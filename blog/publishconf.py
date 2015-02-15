@@ -49,8 +49,12 @@ SOCIAL = (('Github', 'https://github.com/wangzw'),
           ('Weibo', 'http://weibo.com/u/2064676750')
           )
 
-# Disous comments
-DISQUS_SITENAME = 'wangzw'
+# comments
+DUOSHUO_SITENAME = 'wangzw'
+DUOSHUO_ID_PREFIX_SLUG = True
+DUOSHUO_DISPLAY_COUNTS = True
+
+#DISQUS_SITENAME = 'wangzw'
 DISQUS_NO_ID = False
 DISQUS_ID_PREFIX_SLUG = True
 DISQUS_DISPLAY_COUNTS = True
