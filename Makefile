@@ -1,7 +1,7 @@
 all: blog resume
 
 blog: 
-	cd blog && make html
+	cd blog && make publish
 
 resume:
 	cd resume && make
