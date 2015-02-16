@@ -20,6 +20,8 @@ PLUGINS = ['tipue_search', 'liquid_tags.img', 'liquid_tags.video',
 AUTHOR = u'Zhanwei Wang (王占伟)'
 SITENAME = u'攻城狮的生活'
 SITEURL = 'http://www.wangzw.org'
+CATEGORIES_URL = 'categories.html'
+TAGS_URL = 'tags.html'
 RELATIVE_URLS = False
 
 PATH = 'content'
