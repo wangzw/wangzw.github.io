@@ -3,7 +3,7 @@
 % vim:set ft=tex spell:
 
 \documentclass[10pt,letterpaper]{article}
-\usepackage[a4paper, top=2.0cm, left=2.5cm, right=2.0cm, bottom=2.0cm]{geometry}
+\usepackage[a4paper, top=2.0cm, left=2.0cm, right=2.0cm, bottom=0cm]{geometry}
 \usepackage[utf8]{inputenc}
 \usepackage{CJK}
 \usepackage{mdwlist}
@@ -54,15 +54,16 @@
 wangzw@wangzw.org
 \end{center}
 
-\vspace{-2em}
+\vspace{-6mm}
 \subsection*{Experience}
+\vspace{-2mm}
 
 \begin{itemize}
-	\parskip=0.1em
+	\parskip=0.2mm
 
 	\item
 	\headerrow
-		{\textbf{EMC Corporation / Pivotal Software, Inc.}}
+		{\textbf{EMC Corporation / Pivotal Software Inc.}}
 		{\textbf{Beijing, China}}
 	\\
 	\headerrow
@@ -70,10 +71,31 @@ wangzw@wangzw.org
 		{\emph{2011 -- present}}
 	\begin{itemize*}
 		\item Pivotal Software is a spin-out and joint venture of EMC Corporation and its subsidiary VMware that focus on cloud computing, big data and applications.
-		\item Create HAWQ from Greenplum Database code base. HAWQ is a massively parallel processing SQL engine sitting on top of HDFS.
-		\item Implement basic functionalities of HAWQ such as creating, dropping table, inserting and querying data.
-		\item Design and implement the metadata dispatching and transaction control module of HAWQ.
-		\item Integrate HAWQ and HDFS security mechanism.
+		
+		\item Create HAWQ from Greenplum Database code base. 
+		HAWQ is a massively parallel processing SQL engine sitting on top of HDFS. 
+		As a hybrid of MPP database and Hadoop, it inherits the merits from both parties. 
+		It adopts a layered architecture and relies on the distributed file system for data replication and fault tolerance. 
+		In addition, it is standard SQL compliant and fully transactional.
+		
+		\item Design and implement the HDFS accessing module for HAWQ. 
+		Provide the ability of efficiently accessing thousands of HDFS files concurrently. 
+		Design the mechanism to avoid the data racing after the network partition.
+		
+		\item Design and implement the metadata dispatching module for HAWQ.
+		Unlike Greenplum Database, 
+		HAWQ segment is designed as stateless and not allowed to access the metadata to boost the scalability. 
+		All metadata used by segments is collected by the master and dispatched to segments.
+		
+		\item Design and implement the transaction control module for HAWQ. 
+		A novel and much simple transaction control mechanism is invented to boost the HAWQ scalability.
+			
+		\item Integrate HAWQ and HDFS security mechanism. 
+		Design and implement an efficient way to query the data on security enabled HDFS.
+		
+		\item Implement basic functionalities of HAWQ such as creating, 
+		dropping table, inserting, querying data and etc based on the new module and architecture design of HAWQ.
+
 	\end{itemize*}
 
 	\item
@@ -85,8 +107,12 @@ wangzw@wangzw.org
 		{\emph{Software Engineer, Intern}}
 		{\emph{2009 -- 2010}}
 	\begin{itemize*}
-		\item Kingbase is the top brand in Chinese database domain. 
-		\item In charge of improving the database kernel optimizer to solve complex query and improve TPCH benchmark test. By theoretical analysis and experimental testing, find out the problems and deficiencies of optimizer in the process of costs estimating. Based on the research results at home and abroad, design and implement the solution. 
+		\item Kingbase is a famous database brand in China and used by  many domestic companies. 
+		
+		\item In charge of improving the database optimizer for complex query and improving TPCH benchmark test result. 
+		By theoretical analysis and experimental testing, find out the problems and deficiencies of optimizer in the process of costs estimating. 
+		Based on the public research results, design and implement the solution. 
+		
 		\item The score of TPCH test is improved almost 50\% and the execution time of some complex queries is reduced nearly 10 times.
 	\end{itemize*}
 	
@@ -100,16 +126,21 @@ wangzw@wangzw.org
 		{\emph{2008 -- 2009}}
 	\begin{itemize*}
 		\item Borqs is a hi-tech enterprise dedicated to providing end-to-end software solutions for the whole industrial chain of mobile communications. 
-		\item Responsible for development of flash memory tools under windows platform. Communicate with users, collect user need, reconstruction original tools. Improve tools based on the feedback of users. Conduct training; introduce the features and usage of the tools. 
-		\item Improved the efficiency twice than that of the old one. These tools are widely used in development and cell phone manufacture in factory. 
+		
+		\item Responsible for development of flash memory tools under windows platform. 
+		Communicate with users, collect user requirements, reconstruct original tools. 
+		Improve tools based on the feedback. 
+		
+		\item Improved the efficiency twice than that of the old one. These tools are widely used in development and smart phone manufacture in factory. 
 	\end{itemize*}
 \end{itemize}
 
-\vspace{-2em}
+\vspace{-8mm}
 \subsection*{Open Source Project}
+\vspace{-2mm}
 
-\begin{itemize}
-	\parskip=0.1em
+\begin{itemize*}
+	\parskip=0.2mm
 
 	\item 
 	\headerrow
@@ -123,15 +154,16 @@ wangzw@wangzw.org
 		{\textbf{CppStyle}}
 		{\textbf{http://wangzw.github.io/CppStyle}}
 	\\
-	{\emph{An Eclipse plugin that integrates clang-format and cpplint.py}}
+	{\emph{An Eclipse plugin that integrates clang-format and cpplint.py. Used to format C/\CPP\ code and check coding style.}}
 
-\end{itemize}
+\end{itemize*}
 
-\vspace{-2em}
+\vspace{-8mm}
 \subsection*{Education}
+\vspace{-2mm}
 
-\begin{itemize}
-	\parskip=0.1em
+\begin{itemize*}
+	\parskip=0.2mm
 
 	\item 
 	\headerrow
@@ -151,13 +183,14 @@ wangzw@wangzw.org
 		{\emph{Bachelor of Engineering, Computer Science}}
 		{\emph{2004 -- 2008}}
 
-\end{itemize}
+\end{itemize*}
 
-\vspace{-2em}
+\vspace{-8mm}
 \subsection*{Publications}
+\vspace{-2mm}
 
-\begin{itemize}
-	\parskip=0.1em
+\begin{itemize*}
+	\parskip=0.2mm
 
 	\item 
 	\headerrow
@@ -165,13 +198,12 @@ wangzw@wangzw.org
 		{\textbf{June, 2014}}
 	\\
 	{\emph{Proceedings of the 2014 ACM SIGMOD international conference on Management of data}}
-	\begin{itemize*}
-		\item HAWQ, developed at Pivotal, is a massively parallel processing SQL engine sitting on top of HDFS. As a hybrid of MPP database and Hadoop, it inherits the merits from both parties. It adopts a layered architecture and relies on the distributed file system for data replication and fault tolerance. In addition, it is standard SQL compliant, and unlike other SQL engines on Hadoop, it is fully transactional.
-	\end{itemize*}
-\end{itemize}
 
-\vspace{-2em}
+\end{itemize*}
+
+\vspace{-8mm}
 \subsection*{Technical Skills}
+\vspace{-2mm}
 
 \begin{indentsection}{\parindent}
 \hyphenpenalty=1000
