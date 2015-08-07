@@ -1,13 +1,12 @@
 language: python
 python:
 - 2.7
+addons:
+  apt:
+    sources:
+    - texlive-full
 install:
 - pip install -r requirements.txt
-- wget http://security.ubuntu.com/ubuntu/pool/main/libs/libssh/libssh-4_0.5.2-1ubuntu0.12.04.4_amd64.deb
-- wget http://us.archive.ubuntu.com/ubuntu/pool/main/u/udev/libgudev-1.0-0_175-0ubuntu9.9_amd64.deb
-- sudo dpkg -i libssh-4_0.5.2-1ubuntu0.12.04.4_amd64.deb
-- sudo dpkg -i libgudev-1.0-0_175-0ubuntu9.9_amd64.deb
-- sudo apt-get install -f -m texlive-full
 script:
 - make all
 env:
