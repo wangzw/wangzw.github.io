@@ -2,4 +2,5 @@ pelican
 Markdown
 fabric
 beautifulsoup4
+jsonschema
 ipython
