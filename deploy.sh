@@ -18,7 +18,8 @@ if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
     cd built_website
     rm -rf *
     mkdir -p resume
-    rsync -rv --exclude=.git  ../$PELICAN_OUTPUT_FOLDER/* .
+    cp ../CNAME ./
+    cp ../index.html ./
     cp ../resume/*.pdf resume/
     #add, commit and push files
     git add -f --all .

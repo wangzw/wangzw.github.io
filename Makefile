@@ -1,9 +1,6 @@
-all: blog resume
-
-blog: 
-	cd blog && make publish
+all: resume
 
 resume:
 	cd resume && make
 	
-.PHONY: all blog resume
+.PHONY: all resume

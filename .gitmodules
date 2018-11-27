@@ -1,6 +1,0 @@
-[submodule "blog/themes/pelican-bootstrap3"]
-	path = blog/themes/pelican-bootstrap3
-	url = https://github.com/wangzw/pelican-bootstrap3.git
-[submodule "blog/plugins/pelican-plugins"]
-	path = blog/plugins/pelican-plugins
-	url = https://github.com/wangzw/pelican-plugins.git
