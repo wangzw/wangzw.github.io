@@ -57,7 +57,7 @@
 	<key>HideScrollbar</key>
 	<false/>
 	<key>HideTab</key>
-	<true/>
+	<false/>
 	<key>HighlightTabLabels</key>
 	<true/>
 	<key>HotKeyBookmark</key>
@@ -121,18 +121,10 @@
 	</data>
 	<key>NSTableView Supports v2 KeyBingingTable</key>
 	<true/>
-	<key>NSWindow Frame SUStatusFrame</key>
-	<string>798 283 400 129 0 0 1440 900 </string>
-	<key>NSWindow Frame SUUpdateAlert</key>
-	<string>410 381 620 392 0 0 1440 900 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>269 122 796 473 0 0 1440 900 </string>
+	<string>214 339 796 486 0 0 1680 1027 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>0 424 572 453 0 0 1440 900 </string>
-	<key>NSWindow Frame iTerm Window 1</key>
-	<string>0 447 572 453 0 0 1440 877 </string>
-	<key>NSWindow Frame iTerm Window 2</key>
-	<string>0 447 572 453 0 0 1440 900 </string>
+	<string>191 101 572 453 0 0 1680 1027 </string>
 	<key>NeverWarnAboutShortLivedSessions_A8001F22-6C55-4D99-8C44-F5BB5FE15E10</key>
 	<true/>
 	<key>New Bookmarks</key>
@@ -1588,22 +1580,14 @@
 			<string>/Users/wangzw</string>
 		</dict>
 	</array>
-	<key>NoSyncAutoBurialReveal</key>
-	<true/>
 	<key>NoSyncHaveWarnedAboutPasteConfirmationChange</key>
 	<true/>
 	<key>NoSyncInstallationId</key>
-	<string>74BDCA7F-E154-4253-8398-3C6EFDDD174C</string>
-	<key>NoSyncNeverRemindPrefsChangesLostForUrl</key>
-	<true/>
-	<key>NoSyncNeverRemindPrefsChangesLostForUrl_selection</key>
-	<integer>0</integer>
-	<key>NoSyncPermissionToShowTip</key>
-	<false/>
+	<string>70FA2E9D-DC8B-43AC-9504-59A81B57BFAF</string>
 	<key>NoSyncTimeOfFirstLaunchOfVersionWithTip</key>
-	<real>528210131.08395803</real>
+	<real>576250525.06974006</real>
 	<key>OnlyWhenMoreTabs</key>
-	<false/>
+	<true/>
 	<key>OpenArrangementAtStartup</key>
 	<false/>
 	<key>OpenBookmark</key>
@@ -1656,7 +1640,7 @@
 	<key>PromptOnQuit</key>
 	<true/>
 	<key>QuitWhenAllWindowsClosed</key>
-	<false/>
+	<true/>
 	<key>RightCommand</key>
 	<integer>8</integer>
 	<key>RightOption</key>
@@ -1666,11 +1650,11 @@
 	<key>SUFeedAlternateAppNameKey</key>
 	<string>iTerm</string>
 	<key>SUFeedURL</key>
-	<string>https://iterm2.com/appcasts/testing.xml?shard=0</string>
+	<string>https://iterm2.com/appcasts/testing.xml?shard=56</string>
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2017-10-19T04:00:42Z</date>
+	<date>2019-04-06T13:45:14Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>SavePasteHistory</key>
@@ -1722,6 +1706,6 @@
 	<key>findRegex_iTerm</key>
 	<false/>
 	<key>iTerm Version</key>
-	<string>3.1.4.beta.1</string>
+	<string>3.2.8</string>
 </dict>
 </plist>
