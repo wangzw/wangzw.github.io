@@ -1,3 +1,21 @@
-baseURL = 'https://example.org/'
+baseURL = 'https://www.zhanwei.wang/'
 languageCode = 'en-us'
-title = 'My New Hugo Site'
+title = 'Zhanwei Wang'
+theme = "m10c"
+
+[params]
+author = "Zhanwei Wang"
+description = "Talk is cheap, so let's talk."
+menu_item_separator = " - "
+avatar = "avatar.jpeg"
+favicon = "/favicon.ico"
+
+[[params.social]]
+icon = "brand-github"
+name = "Zhanwei Wang"
+url = "https://github.com/wangzw"
+
+[[params.social]]
+icon = "brand-linkedin"
+name = "Zhanwei Wang"
+url = "https://www.linkedin.com/in/wangzw/"
