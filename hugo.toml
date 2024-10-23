@@ -1,14 +1,38 @@
-baseURL = 'https://www.zhanwei.wang/'
-languageCode = 'en-us'
-title = 'Zhanwei Wang'
+baseURL = "https://zhanwei.wang/"
+languageCode = "en-us"
+title = "Zhanwei Wang"
 theme = "m10c"
+pluralizeListTitles = false
+
+[menu]
+[[menu.main]]
+identifier = "home"
+name = "Home"
+url = "/"
+weight = 1
+[[menu.main]]
+identifier = "asde"
+name = "Asde"
+url = "/asde/"
+weight = 2
+[[menu.main]]
+identifier = "tags"
+name = "Tags"
+url = "/tags/"
+weight = 3
+[[menu.main]]
+identifier = "about"
+name = "About"
+url = "/wangzw/"
+weight = 4
 
 [params]
 author = "Zhanwei Wang"
 description = "Talk is cheap, so let's talk."
-menu_item_separator = " - "
+menu_item_separator = " &centerdot; "
 avatar = "avatar.jpeg"
 favicon = "/favicon.ico"
+
 
 [[params.social]]
 icon = "brand-github"
