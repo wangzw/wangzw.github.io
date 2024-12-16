@@ -1,38 +1,15 @@
 baseURL = "https://zhanwei.wang/"
-languageCode = "en-us"
+languageCode = "en-US"
 title = "Zhanwei Wang"
 theme = "m10c"
 pluralizeListTitles = false
-
-[menu]
-[[menu.main]]
-identifier = "home"
-name = "Home"
-url = "/"
-weight = 1
-[[menu.main]]
-identifier = "asde"
-name = "Asde"
-url = "/asde/"
-weight = 2
-[[menu.main]]
-identifier = "tags"
-name = "Tags"
-url = "/tags/"
-weight = 3
-[[menu.main]]
-identifier = "about"
-name = "About"
-url = "/wangzw/"
-weight = 4
+defaultContentLanguage = "en"
+defaultContentLanguageInSubdir = false
 
 [params]
-author = "Zhanwei Wang"
-description = "Talk is cheap, so let's talk."
 menu_item_separator = " &centerdot; "
 avatar = "avatar.jpeg"
 favicon = "/favicon.ico"
-
 
 [[params.social]]
 icon = "brand-github"
@@ -43,3 +20,75 @@ url = "https://github.com/wangzw"
 icon = "brand-linkedin"
 name = "Zhanwei Wang"
 url = "https://www.linkedin.com/in/wangzw/"
+
+[languages]
+[languages.zh]
+disabled = false
+languageCode = 'zh-CN'
+languageDirection = 'ltr'
+languageName = '中文'
+title = '王占伟'
+
+[languages.zh.params]
+author = "王占伟"
+description = "Talk is cheap, so let's talk."
+
+[[languages.zh.menu.main]]
+identifier = "home"
+name = "Home"
+pageRef = "/"
+weight = 1
+
+[[languages.zh.menu.main]]
+identifier = "tags"
+name = "Tags"
+pageRef = "/tags/"
+weight = 3
+
+[[languages.zh.menu.main]]
+identifier = "about"
+name = "About"
+url = "https://github.com/wangzw"
+weight = 4
+
+[languages.zh.menu.main.params]
+target = '_blank'
+
+
+[languages.en]
+disabled = false
+languageCode = 'en-US'
+languageDirection = 'ltr'
+languageName = 'English'
+title = 'Zhanwei Wang'
+
+[languages.en.params]
+author = "Zhanwei Wang"
+description = "Talk is cheap, so let's talk."
+
+[[languages.en.menu.main]]
+identifier = "home"
+name = "Home"
+pageRef = "/"
+weight = 1
+
+[[languages.en.menu.main]]
+identifier = "asde"
+name = "Asde"
+pageRef = "/asde/"
+weight = 2
+
+[[languages.en.menu.main]]
+identifier = "tags"
+name = "Tags"
+pageRef = "/tags/"
+weight = 3
+
+[[languages.en.menu.main]]
+identifier = "about"
+name = "About"
+url = "https://www.linkedin.com/in/wangzw/"
+weight = 4
+
+[languages.en.menu.main.params]
+target = '_blank'
