@@ -11,6 +11,9 @@ menu_item_separator = " &centerdot; "
 avatar = "avatar.jpeg"
 favicon = "/favicon.ico"
 
+[params.baidu]
+code = "04dde72fe229b92cb49f307348ec6df9"
+
 [[params.social]]
 icon = "brand-github"
 name = "Zhanwei Wang"
