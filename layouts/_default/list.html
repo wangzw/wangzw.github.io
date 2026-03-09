@@ -1,0 +1,34 @@
+{{ define "main" }}
+  <article>
+    {{ with .Title -}}<h1>{{- . -}}</h1>{{- end }}
+    {{ with .Content -}}<div class="post-content">{{- . -}}</div>{{- end }}
+    <ul class="posts-list">
+      {{ range where .Paginator.Pages "Type" "!=" "page" }}
+        <li class="posts-list-item">
+          <a class="posts-list-item-title" href="{{ .Permalink }}">{{ .Title }}</a>
+          {{ with .Description }}
+            <p class="posts-list-item-summary">{{ . }}</p>
+          {{ else }}
+            {{ with .Summary }}
+              <p class="posts-list-item-summary">{{ . | plainify | truncate 200 }}</p>
+            {{ end }}
+          {{ end }}
+          <span class="posts-list-item-description">
+            {{ partial "icon.html" (dict "ctx" $ "name" "calendar") }}
+            {{ .PublishDate | time.Format ":date_medium" }}
+            <span class="posts-list-item-separator">-</span>
+            {{ partial "icon.html" (dict "ctx" $ "name" "clock") }}
+            {{ i18n "reading_time" . }}
+            {{ with .Params.tags }}
+              <span class="posts-list-item-separator">-</span>
+              {{ range . }}
+                <span class="posts-list-item-tag">{{ . }}</span>
+              {{ end }}
+            {{ end }}
+          </span>
+        </li>
+      {{ end }}
+    </ul>
+    {{ partial "pagination.html" $ }}
+  </article>
+{{ end }}
