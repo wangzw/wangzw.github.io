@@ -1,6 +1,8 @@
-name: Update Content & Deploy
+name: Deploy Hugo site to Pages
 
 on:
+  push:
+    branches: [main]
   schedule:
     # Daily at midnight UTC (8am CST)
     - cron: "0 0 * * *"
@@ -20,10 +22,10 @@ defaults:
     shell: bash
 
 jobs:
-  update:
+  build:
     runs-on: ubuntu-latest
     outputs:
-      changed: ${{ steps.check.outputs.changed }}
+      should_deploy: ${{ steps.should-deploy.outputs.value }}
     env:
       HUGO_VERSION: 0.157.0
     steps:
@@ -35,9 +37,11 @@ jobs:
           fetch-depth: 0
 
       - name: Update content submodule
+        if: github.event_name != 'push'
         run: git submodule update --remote content
 
-      - name: Check for changes
+      - name: Check for submodule changes
+        if: github.event_name != 'push'
         id: check
         run: |
           if git diff --quiet; then
@@ -47,7 +51,7 @@ jobs:
           fi
 
       - name: Commit submodule update
-        if: steps.check.outputs.changed == 'true'
+        if: github.event_name != 'push' && steps.check.outputs.changed == 'true'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -55,27 +59,36 @@ jobs:
           git commit -m "Update content submodule"
           git push
 
+      - name: Determine if deploy is needed
+        id: should-deploy
+        run: |
+          if [[ "${{ github.event_name }}" == "push" ]] || [[ "${{ steps.check.outputs.changed }}" == "true" ]]; then
+            echo "value=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "value=false" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Install Hugo CLI
-        if: steps.check.outputs.changed == 'true'
+        if: steps.should-deploy.outputs.value == 'true'
         run: |
           wget -O ${{ runner.temp }}/hugo.deb https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_linux-amd64.deb \
           && sudo dpkg -i ${{ runner.temp }}/hugo.deb
 
       - name: Install Dart Sass
-        if: steps.check.outputs.changed == 'true'
+        if: steps.should-deploy.outputs.value == 'true'
         run: sudo snap install dart-sass
 
       - name: Setup Pages
-        if: steps.check.outputs.changed == 'true'
+        if: steps.should-deploy.outputs.value == 'true'
         id: pages
         uses: actions/configure-pages@v5
 
       - name: Install Node.js dependencies
-        if: steps.check.outputs.changed == 'true'
+        if: steps.should-deploy.outputs.value == 'true'
         run: "[[ -f package-lock.json || -f npm-shrinkwrap.json ]] && npm ci || true"
 
       - name: Build with Hugo
-        if: steps.check.outputs.changed == 'true'
+        if: steps.should-deploy.outputs.value == 'true'
         env:
           HUGO_CACHEDIR: ${{ runner.temp }}/hugo_cache
           HUGO_ENVIRONMENT: production
@@ -87,7 +100,7 @@ jobs:
             --baseURL "${{ steps.pages.outputs.base_url }}/"
 
       - name: Upload artifact
-        if: steps.check.outputs.changed == 'true'
+        if: steps.should-deploy.outputs.value == 'true'
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./public
@@ -97,8 +110,8 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
-    needs: update
-    if: needs.update.outputs.changed == 'true'
+    needs: build
+    if: needs.build.outputs.should_deploy == 'true'
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
