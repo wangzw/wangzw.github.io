@@ -2,3 +2,7 @@
 	path = themes/m10c
 	url = git@github.com:wangzw/hugo-theme-m10c.git
 	branch = master
+[submodule "content"]
+	path = content
+	url = git@github.com:wangzw/blog.git
+	branch = main
