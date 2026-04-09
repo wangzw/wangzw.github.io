@@ -4,7 +4,7 @@ title = "Zhanwei Wang"
 theme = "m10c"
 pluralizeListTitles = false
 defaultContentLanguage = "en"
-defaultContentLanguageInSubdir = false
+defaultContentLanguageInSubdir = true
 
 [params]
 menu_item_separator = " &centerdot; "
