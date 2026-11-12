@@ -1,144 +1,96 @@
 ---
 name: blog-post
-description: Use this skill when writing long-form blog posts, tutorials, or educational articles that require structure, depth, and SEO considerations
+description: How to write a new post for this blog. Use it whenever the user asks to write, draft, outline or plan a blog post, article or essay for this site, or hands over notes, a transcript, a session log or a topic and wants a post out of it. The method is material first - gather what the author actually did and thinks, list the claims, then write straight through - because outline-first drafting is what made earlier posts read as templated. Do not start drafting from a topic alone.
 ---
 
-# Blog Post Writing Skill
+# Writing a post for this blog
 
-This skill provides a structured workflow for creating high-quality blog posts that educate and engage readers.
+## Why this is not an outline-first workflow
 
-## When to Use This Skill
+Earlier posts here were reviewed by twenty independent readers. The complaint they raised most was not a word or a phrase. It was that each post made its main point three to five times: once in the introduction, again in a section heading, again at the end of that section, again in the conclusion. Every section had been written as a small article of its own, with an opener, an argument and a closing line that restated the thesis.
 
-Use this skill when asked to:
-- Write a blog post or article
-- Create a tutorial or how-to guide
-- Develop educational long-form content
-- Write thought leadership pieces
+That shape is decided before the first sentence exists. A draft grown from a fixed outline (hook, context, three to five sections, practical tips, summary, call to action) fills every slot, and every slot gets rounded off. Review after the fact cannot repair it, because each repetition carries a little content of its own and cutting it damages the post.
 
-## Research First (Required)
+So the order here is reversed. Material comes first, the post comes from the material, and structure appears last.
 
-**Before writing any blog post, you MUST delegate research:**
+Publishing mechanics (two language files per post, TOML front matter, the date and timezone trap, the submodule commit flow) are in the repository's `CLAUDE.md`. Follow it; this skill does not repeat it.
 
-1. Use the `task` tool with `subagent_type: "researcher"`
-2. In the description, specify BOTH the topic AND where to save:
+## 1. Gather the author's material
 
-```
-task(
-    subagent_type="researcher",
-    description="Research [TOPIC]. Save findings to research/[slug].md"
-)
-```
+A post needs something only the author has: what they did, what happened, what they concluded. Without it the only thing that can be written is a generic skeleton, and that is exactly what reads as templated.
 
-Example:
-```
-task(
-    subagent_type="researcher",
-    description="Research the current state of AI agents in 2025. Save findings to research/ai-agents-2025.md"
-)
-```
+Material can be notes, a spoken account, chat or session logs, commit history, pull requests, measurements, an earlier draft. If the author gives a topic and nothing else, ask before writing. Ask about things only they know, a few questions at a time:
 
-3. After research completes, read the findings file before writing
+- What happened, in order? What did you try first, and what made you change course?
+- What surprised you, or turned out to be wrong?
+- Which numbers were measured, and where do they come from? Which are rough impressions?
+- Which examples really happened, and which are illustrations you made up?
+- What would you tell a colleague who is about to do the same thing?
+- What are you still unsure about?
+- What must not be published (internal names, people, customers, unreleased work)?
 
-## Output Structure (Required)
+Rough answers are enough. Ten minutes of the author talking is worth more than any amount of polishing later.
 
-**Every blog post MUST have both a post AND a cover image:**
+Research is allowed for checking facts, finding the right link, and quoting a source accurately. It does not stand in for the author's experience: do not research a topic and fill the post with what the research found.
 
-```
-blogs/
-└── <slug>/
-    ├── post.md        # The blog post content
-    └── hero.png       # REQUIRED: Generated cover image
-```
+Keep the material outside the repository unless the author says where to put it. `content/` is a public repository, and raw notes usually contain things that should not be published.
 
-Example: A post about "AI Agents in 2025" → `blogs/ai-agents-2025/`
+Everything in the post must trace back to this material or to a cited public source. Do not invent projects, incidents, figures, file names, quotes or first-person experience, and do not carry in details from the session context, memory or other files that the author did not offer for this post.
 
-**You MUST complete both steps:**
-1. Write the post to `blogs/<slug>/post.md`
-2. Generate a cover image using `generate_image` and save to `blogs/<slug>/hero.png`
+## 2. List the claims, not an outline
 
-**A blog post is NOT complete without its cover image.**
+Write down what the post will say, one line per claim. For each line note:
 
-## Blog Post Structure
+- where it comes from in the material;
+- whether it is something that happened, something measured, the author's judgement, a hypothetical illustration, or a cited source;
+- anything the author flagged as uncertain.
 
-Every blog post should follow this structure:
+There are no slots in this list. It has no "introduction", "background" or "conclusion", and no target number of sections. If the material supports four claims, the list has four lines.
 
-### 1. Hook (Opening)
-- Start with a compelling question, statistic, or statement
-- Make the reader want to continue
-- Keep it to 2-3 sentences
+Each claim gets one home. If two lines say the same thing, merge them now.
 
-### 2. Context (The Problem)
-- Explain why this topic matters
-- Describe the problem or opportunity
-- Connect to the reader's experience
+Show the list to the author before drafting. It takes them two minutes to cross out what they do not want to say, fix what was misread and add what is missing, and it is far cheaper than finding out from a finished draft.
 
-### 3. Main Content (The Solution)
-- Break into 3-5 main sections with H2 headers
-- Each section covers one key point
-- Include code examples, diagrams, or screenshots where helpful
-- Use bullet points for lists
+## 3. Write straight through
 
-### 4. Practical Application
-- Show how to apply the concepts
-- Include step-by-step instructions if applicable
-- Provide code snippets or templates
+One writer, start to finish, in one pass. Do not hand sections to subagents: a writer who sees one section cannot know what the others already said, and will say it again.
 
-### 5. Conclusion & CTA
-- Summarize key takeaways (3 bullets max)
-- End with a clear call-to-action
-- Link to related resources
+Write in the order a person would tell this to a colleague. That is usually the order things happened, or the order in which one thing explains the next. It is rarely "problem, name, mechanism, remedy".
 
-## Cover Image Generation
+While writing:
 
-After writing the post, generate a cover image using the `generate_cover` tool:
+- Say each claim once, where it belongs. When a later passage depends on it, point back in a clause and move on. Do not argue it again.
+- Start with the first real thing. No hook formula, no rhetorical question to the reader, no "in this post we will".
+- Stop when the content ends. No summary of what was just said, no takeaways list, no call to action, no question to the audience. If the last paragraph ends on a fact, a number or a link, that is a good ending.
+- Let length follow the material. A point that needs three paragraphs gets three; a point that needs one sentence gets one. Sections of very different length are fine.
+- Add headings after the text exists, as labels for what is there. Do not write to fill a heading.
+- Use a list or a table when the material is a list or a table: steps, fields, a comparison along the same dimensions. Do not turn an argument into bullets, and do not pad a list to a round number.
+- Keep the status of every example visible. If it is hypothetical, say so in the sentence. Do not tell an illustration as if it happened.
+- Leave the author's hedges and limits in. "We don't handle this case" and "I'm not sure this generalizes" belong in the post.
+- No keyword repetition for search engines. The description says what the post is about in a sentence or two and does not announce its skeleton ("five forms, five causes, nine remedies").
 
-```
-generate_cover(prompt="A detailed description of the image...", slug="your-blog-slug")
-```
+Write the first version in the language the author gave the material in.
 
-The tool saves the image to `blogs/<slug>/hero.png`.
+## 4. Check the draft against the claim list
 
-### Writing Effective Image Prompts
+Before any outside review, go down the claim list and find every place the draft states each claim.
 
-Structure your prompt with these elements:
+- Stated more than once: keep it where it is argued best. Turn the other places into a short reference back, or cut them. Check that nothing unique goes out with the cut.
+- Not stated at all: either it was dropped on purpose, or the draft is missing something. Decide which.
+- In the draft but not on the list: where did it come from? If it is not in the material, remove it or ask the author.
 
-1. **Subject**: What is the main focus? Be specific and concrete.
-2. **Style**: Art direction (minimalist, isometric, flat design, 3D render, watercolor, etc.)
-3. **Composition**: How elements are arranged (centered, rule of thirds, symmetrical)
-4. **Color palette**: Specific colors or mood (warm earth tones, cool blues and purples, high contrast)
-5. **Lighting/Atmosphere**: Soft diffused light, dramatic shadows, golden hour, neon glow
-6. **Technical details**: Aspect ratio considerations, negative space for text overlay
+Then check every number, name, path, link and quotation against the material.
 
-### Example Prompts
+## 5. Language and review
 
-**For a technical blog post:**
-```
-Isometric 3D illustration of interconnected glowing cubes representing AI agents, each cube has subtle circuit patterns. Cubes connected by luminous data streams. Deep navy background (#0a192f) with electric blue (#64ffda) and soft purple (#c792ea) accents. Clean minimal style, lots of negative space at top for title. Professional tech aesthetic.
-```
+Run the language skill for the draft's language first: speak-like-chinese for Chinese, an English style skill for English. Then run speak-like-human for one adversarial review round, passing the material as the author's notes so its guard and auditor can check that nothing unsourced was added.
 
-**For a tutorial/how-to:**
-```
-Clean flat illustration of hands typing on a keyboard with abstract code symbols floating upward, transforming into lightbulbs and gears. Warm gradient background from soft coral to light peach. Friendly, approachable style. Centered composition with space for text overlay.
-```
+## 6. The second language
 
-**For thought leadership:**
-```
-Abstract visualization of a human silhouette profile merging with geometric neural network patterns. Split composition - organic watercolor texture on left transitioning to clean vector lines on right. Muted sage green and warm terracotta color scheme. Contemplative, forward-thinking mood.
-```
+Translate the finished post. Do not write the other version from the claim list or from the material, because two independently generated versions drift apart: different examples, different emphasis, different conclusions.
 
-## SEO Considerations
+The translation keeps the same claims in the same order with the same numbers and the same structure. Title, description and tags are written in the target language. Both files share one `date`. Then run the language skill for that language over the translation, since a faithful translation can still read as translated.
 
-- Include the main keyword in the title and first paragraph
-- Use the keyword naturally 3-5 times throughout
-- Keep the title under 60 characters
-- Write a meta description (150-160 characters)
+## 7. Publish only when asked
 
-## Quality Checklist
-
-Before finishing:
-- [ ] Post saved to `blogs/<slug>/post.md`
-- [ ] Hero image generated at `blogs/<slug>/hero.png`
-- [ ] Hook grabs attention in first 2 sentences
-- [ ] Each section has a clear purpose
-- [ ] Conclusion summarizes key points
-- [ ] CTA tells reader what to do next
+Preview with `hugo server -D`. Commit and push only when the author asks, following the flow in `CLAUDE.md`.
