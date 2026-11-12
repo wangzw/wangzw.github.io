@@ -13,6 +13,8 @@ That shape is decided before the first sentence exists. A draft grown from a fix
 
 So the order here is reversed. Material comes first, the post comes from the material, and structure appears last.
 
+The steps below are the speak-like-human writing guidance (`references/writing.md` in that skill) applied to this blog. If that skill is installed, its guidance and this file agree; where this file is more specific, follow this file.
+
 Publishing mechanics (two language files per post, TOML front matter, the date and timezone trap, the submodule commit flow) are in the repository's `CLAUDE.md`. Follow it; this skill does not repeat it.
 
 ## 1. Gather the author's material
@@ -81,9 +83,11 @@ Before any outside review, go down the claim list and find every place the draft
 
 Then check every number, name, path, link and quotation against the material.
 
-## 5. Language and review
+## 5. Language check
 
-Run the language skill for the draft's language first: speak-like-chinese for Chinese, an English style skill for English. Then run speak-like-human for one adversarial review round, passing the material as the author's notes so its guard and auditor can check that nothing unsourced was added.
+Run the language skill for the draft's language: speak-like-chinese for Chinese, an English style skill for English.
+
+That is the last required check. The adversarial review in the speak-like-human skill is not part of this flow: it spawns several subagents per post, and it runs only when the author asks for it. If the author does ask, pass the material as the author's notes so its guard and auditor can check that nothing unsourced was added.
 
 ## 6. The second language
 

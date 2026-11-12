@@ -13,6 +13,8 @@ The parent repo only tracks configuration, layout overrides, and submodule point
 
 ## Publishing a blog post — the canonical flow
 
+Writing a new post starts with the `blog-post` skill (`.claude/skills/blog-post/`): gather the author's material, list the claims, write straight through, then translate. The steps below are the publishing mechanics that follow it.
+
 Every post MUST be bilingual. Hugo is configured with `defaultContentLanguage = "en"` and `defaultContentLanguageInSubdir = true`, and the root URL (`layouts/alias.html`) redirects visitors to `/en/` or `/zh/` based on their browser language. A post that exists in only one language will 404 for half the audience.
 
 1. Create **two** files in `content/posts/`, sharing the same slug:
