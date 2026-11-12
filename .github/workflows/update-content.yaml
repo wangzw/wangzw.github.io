@@ -27,7 +27,7 @@ jobs:
     outputs:
       should_deploy: ${{ steps.should-deploy.outputs.value }}
     env:
-      HUGO_VERSION: 0.157.0
+      HUGO_VERSION: 0.165.0
     steps:
       - name: Checkout
         uses: actions/checkout@v4

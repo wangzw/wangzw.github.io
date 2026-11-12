@@ -1,5 +1,5 @@
 baseURL = "https://zhanwei.wang/"
-languageCode = "en-US"
+locale = "en-US"
 title = "Zhanwei Wang"
 theme = "m10c"
 pluralizeListTitles = false
@@ -27,9 +27,9 @@ url = "https://www.linkedin.com/in/wangzw/"
 [languages]
 [languages.zh]
 disabled = false
-languageCode = 'zh-CN'
-languageDirection = 'ltr'
-languageName = '中文'
+locale = 'zh-CN'
+direction = 'ltr'
+label = '中文'
 title = '王占伟'
 
 [languages.zh.params]
@@ -60,9 +60,9 @@ target = '_blank'
 
 [languages.en]
 disabled = false
-languageCode = 'en-US'
-languageDirection = 'ltr'
-languageName = 'English'
+locale = 'en-US'
+direction = 'ltr'
+label = 'English'
 title = 'Zhanwei Wang'
 
 [languages.en.params]

@@ -57,7 +57,7 @@ The CI build runs with `TZ=Asia/Shanghai` (see `.github/workflows/update-content
 | Sync submodules after fresh clone | `git submodule update --init --recursive` |
 | Pull latest content only | `git submodule update --remote content` |
 
-Hugo version in CI: `0.157.0` (extended). Match locally if debugging rendering differences.
+Hugo version in CI: `0.165.0` (extended). Match locally if debugging rendering differences.
 
 ## Deployment
 
