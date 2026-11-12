@@ -76,12 +76,6 @@ pageRef = "/"
 weight = 1
 
 [[languages.en.menu.main]]
-identifier = "asde"
-name = "Asde"
-pageRef = "/asde/"
-weight = 2
-
-[[languages.en.menu.main]]
 identifier = "tags"
 name = "Tags"
 pageRef = "/tags/"
