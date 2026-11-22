@@ -1,0 +1,37 @@
+// Project-specific CSS; overrides the empty file of the same name in the theme.
+
+// The "Projects" section at the bottom of the sidebar.
+.app-header-projects {
+  margin-top: 1.5em;
+  padding-top: 1.5em;
+  border-top: 1px solid $dark-color;
+
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  li:not(:last-child) {
+    margin-bottom: 1em;
+  }
+
+  a {
+    font-weight: bold;
+  }
+}
+
+.app-header-projects-title {
+  margin: 0 0 0.8em;
+  font-size: 0.85em;
+  font-weight: normal;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: $light-color;
+}
+
+.app-header-projects-description {
+  display: block;
+  margin-top: 0.2em;
+  font-size: 0.85em;
+}

@@ -20,8 +20,10 @@ author_handle = "wangzw"
 images = ["avatar.jpeg"]
 llms_summary = "Personal blog of Zhanwei Wang. Every post is published in English and in Chinese."
 
-# Sites served under this domain from other repositories. Each one is listed in
-# /llms.txt, and its sitemap in /robots.txt and the root sitemap index.
+# Sites served under this domain from other repositories. Each one is shown in
+# the "Projects" section of the sidebar and listed in /llms.txt, and its sitemap
+# is listed in /robots.txt and the root sitemap index. languages.zh.params
+# repeats the list with the Chinese URL and description.
 [[params.projects]]
 name = "peers"
 url = "https://zhanwei.wang/peers/"
@@ -54,6 +56,12 @@ author = "王占伟"
 description = "软件工程师王占伟的个人博客。"
 motto = "Talk is cheap, so let's talk."
 
+[[languages.zh.params.projects]]
+name = "peers"
+url = "https://zhanwei.wang/peers/zh/"
+description = "在不同主机上的 Claude Code 会话之间互发消息"
+sitemap = "https://zhanwei.wang/peers/sitemap.xml"
+
 [[languages.zh.menu.main]]
 identifier = "home"
 name = "Home"
@@ -67,17 +75,10 @@ pageRef = "/tags/"
 weight = 3
 
 [[languages.zh.menu.main]]
-identifier = "peers"
-name = "Peers"
-params = { description = "在不同主机上的 Claude Code 会话之间互发消息" }
-url = "https://zhanwei.wang/peers/zh/"
-weight = 4
-
-[[languages.zh.menu.main]]
 identifier = "about"
 name = "About"
 url = "https://github.com/wangzw"
-weight = 5
+weight = 4
 
 [languages.zh.menu.main.params]
 target = '_blank'
@@ -108,17 +109,10 @@ pageRef = "/tags/"
 weight = 3
 
 [[languages.en.menu.main]]
-identifier = "peers"
-name = "Peers"
-params = { description = "Cross-host messaging for Claude Code sessions" }
-url = "https://zhanwei.wang/peers/"
-weight = 4
-
-[[languages.en.menu.main]]
 identifier = "about"
 name = "About"
 url = "https://www.linkedin.com/in/wangzw/"
-weight = 5
+weight = 4
 
 [languages.en.menu.main.params]
 target = '_blank'
