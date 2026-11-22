@@ -1,0 +1,39 @@
+{{- /*
+  The page published as /404.html, the only 404 page GitHub Pages serves, so it has
+  to work for visitors of every language. It is rendered by the 404 page of the
+  non-default language (layouts/404.html), because the text of that language comes
+  from i18n; the text of the default language is the literal key, as everywhere else.
+  Every URL is root-relative, the page is served for any missing path.
+*/ -}}
+{{- $default := hugo.Sites.Default -}}
+{{- $style := resources.Get "css/main.scss" | resources.ExecuteAsTemplate "css/main.scss" . | css.Sass | resources.Minify | resources.Fingerprint -}}
+{{- $notFound := "Page not found" -}}
+{{- $broken := "The link you followed may be broken, or the page may have been removed." -}}
+{{- $home := "Go home" -}}
+<!doctype html>
+<html lang="{{ $default.Language.Locale }}">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <title>{{ $notFound }} / {{ i18n $notFound }} // {{ $default.Title }}</title>
+    <link rel="shortcut icon" href="{{ .Site.Params.favicon | default "/favicon.ico" }}" />
+    <link rel="stylesheet" href="{{ $style.RelPermalink }}" />
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="{{ $default.Home.RelPermalink }}"><img class="app-header-avatar" src="{{ .Site.Params.avatar | relURL }}" alt="{{ $default.Params.author }}" /></a>
+      <span class="app-header-title">{{ $default.Title }}</span>
+    </header>
+    <main class="app-container">
+      {{- range hugo.Sites }}
+      {{- $translated := ne .Language.Lang $default.Language.Lang }}
+      <div class="error-404" lang="{{ .Language.Locale }}">
+        <h1 class="error-404-title">{{ partial "icon.html" (dict "ctx" $ "name" "frown") }} {{ cond $translated (i18n $notFound) $notFound }}</h1>
+        <p>{{ cond $translated (i18n $broken) $broken }}</p>
+        <a href="{{ .Home.RelPermalink }}">{{ cond $translated (i18n $home) $home }} {{ partial "icon.html" (dict "ctx" $ "name" "arrow-right") }}</a>
+      </div>
+      {{- end }}
+    </main>
+  </body>
+</html>

@@ -2,6 +2,8 @@
   Robots meta tag, canonical URL, hreflang alternates, the Markdown alternate of a
   post and JSON-LD for every page except the 404 page. A page opts out of indexing
   with `noindex = true`, which hugo.toml sets for the tag pages through a cascade.
+  JSON-LD: WebSite + Person on the home pages, BlogPosting on posts and ProfilePage
+  on the About page; a field with no value is left out.
 */ -}}
 {{- if ne .Kind "404" -}}
 {{- $canonical := .Permalink -}}
@@ -29,37 +31,45 @@
 {{- end }}
 {{- end }}
 {{- end }}
-{{- $author := dict "@type" "Person" "@id" (printf "%s#person" site.BaseURL) "name" site.Params.author "url" site.Home.Permalink -}}
+{{- $person := partial "person.html" . -}}
+{{- $description := partial "page-description.html" . -}}
 {{- if .IsHome }}
-{{- $sameAs := slice -}}
-{{- range site.Params.social }}{{ $sameAs = $sameAs | append .url }}{{ end -}}
-{{- $person := merge $author (dict
-  "image" (site.Params.avatar | absURL)
-  "sameAs" $sameAs) -}}
-{{- with site.Params.author_handle }}{{ $person = merge $person (dict "alternateName" .) }}{{ end -}}
 {{- $website := dict
   "@type" "WebSite"
   "name" site.Title
   "url" site.Home.Permalink
-  "description" site.Params.description
   "inLanguage" site.Language.Locale
-  "author" $author -}}
+  "author" (dict "@id" (index $person "@id")) -}}
+{{- with site.Params.description }}{{ $website = merge $website (dict "description" .) }}{{ end -}}
 <script type="application/ld+json">{{ dict "@context" "https://schema.org" "@graph" (slice $website $person) | jsonify | safeJS }}</script>
 {{- else if and .IsPage (eq .Section "posts") }}
 {{- $post := dict
   "@context" "https://schema.org"
   "@type" "BlogPosting"
   "headline" .Title
-  "description" .Description
   "url" .Permalink
   "mainEntityOfPage" .Permalink
   "datePublished" (.PublishDate.Format "2006-01-02T15:04:05-07:00")
   "dateModified" (.Lastmod.Format "2006-01-02T15:04:05-07:00")
   "inLanguage" site.Language.Locale
   "wordCount" .WordCount
-  "keywords" (.Params.tags | default slice)
-  "author" $author
-  "publisher" $author -}}
+  "author" $person
+  "publisher" $person -}}
+{{- with $description }}{{ $post = merge $post (dict "description" .) }}{{ end -}}
+{{- with .Params.tags }}{{ $post = merge $post (dict "keywords" .) }}{{ end -}}
+{{- with partial "page-image.html" . }}{{ $post = merge $post (dict "image" .) }}{{ end -}}
 <script type="application/ld+json">{{ $post | jsonify | safeJS }}</script>
+{{- else if and .IsPage (eq .Path "/about") }}
+{{- /* The About page: a ProfilePage about the same Person, whose @id is shared by both languages. */ -}}
+{{- $profile := dict
+  "@context" "https://schema.org"
+  "@type" "ProfilePage"
+  "name" .Title
+  "url" .Permalink
+  "inLanguage" site.Language.Locale
+  "mainEntity" $person -}}
+{{- with $description }}{{ $profile = merge $profile (dict "description" .) }}{{ end -}}
+{{- if not .Lastmod.IsZero }}{{ $profile = merge $profile (dict "dateModified" (.Lastmod.Format "2006-01-02T15:04:05-07:00")) }}{{ end -}}
+<script type="application/ld+json">{{ $profile | jsonify | safeJS }}</script>
 {{- end }}
 {{- end }}

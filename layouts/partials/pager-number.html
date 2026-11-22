@@ -1,0 +1,6 @@
+{{- /* The page number of a paginated list page (1 for the first page and for pages that are not paginated). */ -}}
+{{- $number := 1 -}}
+{{- if in (slice "home" "section" "term") .Kind -}}
+  {{- with .Paginator -}}{{- $number = .PageNumber -}}{{- end -}}
+{{- end -}}
+{{- return $number -}}

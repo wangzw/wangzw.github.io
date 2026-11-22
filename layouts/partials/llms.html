@@ -2,8 +2,10 @@
   Publishes /llms.txt at the domain root (https://llmstxt.org/). Called once,
   from the home page of the default language; the file lists the posts of every
   language (linking to their Markdown renditions), the projects in
-  site.Params.projects and, under "Optional", the llms-full files published by
-  partials/llms-full.html.
+  site.Params.projects with their llms.txt files and, under "Optional", the
+  llms-full files published by partials/llms-full.html.
+  Every entry is a link line `- [name](url)`, followed by `: notes` only when there
+  are notes. Brackets in a name are escaped so they cannot end the link text.
 */ -}}
 {{- $lines := slice (printf "# %s" site.Title) "" -}}
 {{- $lines = $lines | append (printf "> %s" site.Params.llms_summary) "" -}}
@@ -12,16 +14,30 @@
   {{- range where .RegularPages "Section" "posts" -}}
     {{- $url := .Permalink -}}
     {{- with .OutputFormats.Get "markdown" -}}{{- $url = .Permalink -}}{{- end -}}
-    {{- $lines = $lines | append (printf "- [%s](%s): %s" .Title $url .Description) -}}
+    {{- $notes := "" -}}
+    {{- with partial "page-description.html" . | replaceRE `\s+` " " -}}{{- $notes = printf ": %s" . -}}{{- end -}}
+    {{- $lines = $lines | append (printf "- [%s](%s)%s" (.Title | replaceRE `([\[\]])` `\$1`) $url $notes) -}}
   {{- end -}}
   {{- $lines = $lines | append "" -}}
 {{- end -}}
 {{- with site.Params.projects -}}
   {{- $lines = $lines | append "## Projects" "" -}}
   {{- range . -}}
-    {{- $lines = $lines | append (printf "- [%s](%s): %s" .name .url .description) -}}
-    {{- with .llms -}}
-      {{- $lines = $lines | append (printf "- [%s llms.txt](%s)" $.name .) -}}
+    {{- $name := .name | replaceRE `([\[\]])` `\$1` -}}
+    {{- $notes := "" -}}
+    {{- with .description -}}{{- $notes = printf ": %s" . -}}{{- end -}}
+    {{- $lines = $lines | append (printf "- [%s](%s)%s" $name .url $notes) -}}
+    {{- /* The llms.txt of the project in every language, each taken from the project entry of that language. */ -}}
+    {{- $projectName := .name -}}
+    {{- $seen := slice -}}
+    {{- range hugo.Sites -}}
+      {{- $label := .Language.Label -}}
+      {{- range .Params.projects -}}
+        {{- if and (eq .name $projectName) .llms (not (in $seen .llms)) -}}
+          {{- $seen = $seen | append .llms -}}
+          {{- $lines = $lines | append (printf "- [%s llms.txt (%s)](%s)" $name $label .llms) -}}
+        {{- end -}}
+      {{- end -}}
     {{- end -}}
   {{- end -}}
   {{- $lines = $lines | append "" -}}

@@ -1,0 +1,22 @@
+{{- /*
+  Language switcher. On a page that exists in another language the link goes to
+  that translation; otherwise (no translation, or the 404 page) to the home page of
+  that language. The theme's version always links to the home pages.
+*/ -}}
+{{- $page := . -}}
+{{- with .Site.Home.AllTranslations }}
+<div>
+  {{ range $key, $home := . }}
+    {{- if ne $key 0 }}
+    {{ $.Site.Params.menu_item_separator | default " - " | safeHTML }}
+    {{- end }}
+    {{- $target := $home }}
+    {{- if ne $page.Kind "404" }}
+      {{- range $page.AllTranslations }}
+        {{- if eq .Language.Lang $home.Language.Lang }}{{ $target = . }}{{ end }}
+      {{- end }}
+    {{- end }}
+  <a href="{{ $target.Permalink }}" onclick="localStorage.setItem('preferred-lang','{{ $home.Language.Lang }}')">{{ $home.Language.Label }}</a>
+  {{ end }}
+</div>
+{{- end }}

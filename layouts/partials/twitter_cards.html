@@ -5,7 +5,7 @@
 */ -}}
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:title" content="{{ .Title | default site.Title }}" />
-<meta name="twitter:description" content="{{ .Description | default site.Params.description }}" />
-{{- with index (.Params.images | default site.Params.images | default slice) 0 }}
-<meta name="twitter:image" content="{{ . | absURL }}" />
+<meta name="twitter:description" content="{{ partial "page-description.html" . }}" />
+{{- with partial "page-image.html" . }}
+<meta name="twitter:image" content="{{ . }}" />
 {{- end }}

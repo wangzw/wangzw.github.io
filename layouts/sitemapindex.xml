@@ -8,9 +8,12 @@
     {{- end }}
   </sitemap>
   {{- end }}
-  {{- range site.Params.projects }}{{ with .sitemap }}
+  {{- /* An index may not list another index, so a project names its leaf sitemaps in `sitemaps`. */}}
+  {{- range site.Params.projects }}
+  {{- range .sitemaps | default (slice .sitemap) }}{{ with . }}
   <sitemap>
     <loc>{{ . }}</loc>
   </sitemap>
   {{- end }}{{ end }}
+  {{- end }}
 </sitemapindex>

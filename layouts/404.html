@@ -1,0 +1,16 @@
+{{- /*
+  The theme's 404 page with its text in the language of the site. Hugo writes one
+  per language (/en/404.html, /zh/404.html), but GitHub Pages only serves /404.html
+  at the root, so the page of the last language also publishes that one
+  (partials/root-404.html, which needs the translations of that language).
+*/ -}}
+{{ define "main" }}
+  <div class="error-404">
+    <h1 class="error-404-title">{{ partial "icon.html" (dict "ctx" $ "name" "frown") }} {{ i18n "Page not found" | default "Page not found" }}</h1>
+    <p>{{ i18n "The link you followed may be broken, or the page may have been removed." | default "The link you followed may be broken, or the page may have been removed." }}</p>
+    <a href="{{ "/" | relLangURL }}">{{ i18n "Go home" | default "Go home" }} {{ partial "icon.html" (dict "ctx" $ "name" "arrow-right") }}</a>
+  </div>
+  {{- if ne .Language.Lang hugo.Sites.Default.Language.Lang }}
+    {{- (resources.FromString "404.html" (partial "root-404.html" .)).Publish }}
+  {{- end }}
+{{ end }}

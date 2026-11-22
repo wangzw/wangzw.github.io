@@ -1,5 +1,4 @@
 "Home" = "主页"
-"Asde" = "Asde"
 "Tags" = "标签"
 "About" = "关于我"
 "Projects" = "项目"
@@ -10,3 +9,7 @@
 "Previous post" = "上一篇"
 "Next post" = "下一篇"
 "Related posts" = "相关文章"
+"Page not found" = "页面未找到"
+"The link you followed may be broken, or the page may have been removed." = "你访问的链接可能已失效，或者页面已被删除。"
+"Go home" = "返回首页"
+"Page number" = "第 {{ .Number }} 页"

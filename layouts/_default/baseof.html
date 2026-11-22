@@ -1,19 +1,24 @@
 <!doctype html>
 <html lang="{{ .Site.Language.Locale | default "en-us" }}">
   <head>
-    <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} // {{ .Site.Title }}{{ end }}</title>
+    {{- /* The title carries the page number on the second and later pages of a list. */}}
+    {{- $pageNumber := partial "pager-number.html" . }}
+    {{- $title := cond (eq .Kind "404") (i18n "Page not found" | default "Page not found") .Title }}
+    {{- if gt $pageNumber 1 }}{{ $title = printf "%s - %s" (cond .IsHome .Site.Title $title) (i18n "Page number" (dict "Number" $pageNumber) | default (printf "Page %d" $pageNumber)) }}{{ end }}
+    <title>{{ if and .IsHome (le $pageNumber 1) }}{{ .Site.Title }}{{ else }}{{ $title }}{{ if not .IsHome }} // {{ .Site.Title }}{{ end }}{{ end }}</title>
     <link rel="shortcut icon" href="{{ .Site.Params.favicon | default "/favicon.ico" }}" />
     <meta charset="utf-8" />
     {{ hugo.Generator }}
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="author" content="{{ .Site.Params.author | default "John Doe" }}" />
-    <meta name="description" content="{{ .Description | default .Site.Params.description }}" />
+    <meta name="description" content="{{ partial "page-description.html" . }}" />
     {{- partial "seo.html" . }}
     {{- if and .IsHome (eq .Language.Lang hugo.Sites.Default.Language.Lang) }}{{ partial "llms.html" . }}{{ end }}
     {{- if .IsHome }}{{ partial "llms-full.html" . }}{{ end }}
     {{ $style := resources.Get "css/main.scss" | resources.ExecuteAsTemplate "css/main.scss" . | css.Sass | resources.Minify | resources.Fingerprint -}}
     <link rel="stylesheet" href="{{ $style.RelPermalink }}" />
-    {{ with .OutputFormats.Get "rss" -}}
+    {{- /* Pages without an RSS output of their own (posts, the About page) point to the feed of the language home page. */}}
+    {{ with or (.OutputFormats.Get "rss") (.Site.Home.OutputFormats.Get "rss") -}}
     {{ printf `<link rel=%q type=%q href=%q title=%q>` .Rel .MediaType.Type .Permalink site.Title | safeHTML }}
     {{ end }}
 
@@ -49,8 +54,9 @@
       {{- end }}
       {{ partial "language.html" . }}
       {{- with .Site.Params.projects }}
-      <section class="app-header-projects">
-        <h2 class="app-header-projects-title">{{ i18n "Projects" | default "Projects" }}</h2>
+      <section class="app-header-projects" aria-labelledby="app-header-projects-title">
+        {{- /* Not a heading: it would come before the page's h1 in the document outline. */}}
+        <p class="app-header-projects-title" id="app-header-projects-title">{{ i18n "Projects" | default "Projects" }}</p>
         <ul>
           {{- range . }}
           <li>

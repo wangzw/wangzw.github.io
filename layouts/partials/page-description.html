@@ -1,0 +1,9 @@
+{{- /*
+  The description of a page: its own description, else the plain-text summary,
+  else the description of the site. Used for the meta description, twitter:description,
+  JSON-LD, llms.txt and the Markdown rendition. The expression is the one in Hugo's
+  embedded opengraph template, which still writes og:description, so all of them agree.
+  The summary can span paragraphs; line-based outputs collapse it onto one line.
+*/ -}}
+{{- $description := or .Description .Summary .Site.Params.description | plainify | htmlUnescape -}}
+{{- return (trim $description "\n\r\t ") -}}

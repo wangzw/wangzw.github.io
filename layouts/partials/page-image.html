@@ -1,0 +1,6 @@
+{{- /* The absolute URL of the share image of a page: the first of its `images`, else of the site's `params.images`; empty when there is none. */ -}}
+{{- $url := "" -}}
+{{- with .Params.images | default .Site.Params.images -}}
+  {{- $url = index . 0 | absURL -}}
+{{- end -}}
+{{- return $url -}}

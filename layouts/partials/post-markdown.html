@@ -1,7 +1,8 @@
 {{- /*
   Returns a post as Markdown: the title as an H1, a metadata line, the description
   and the body as written in the source file. Used for the post's index.md
-  (layouts/_default/single.md) and for llms-full.txt (partials/llms.html).
+  (layouts/_default/single.md) and for llms-full.txt (partials/llms-full.html). The
+  description is the one of partials/page-description.html, on one line.
 
   The body is the raw source, so a shortcode would be published unexpanded. No post
   uses one; if one is added the build stops instead of publishing broken Markdown.
@@ -15,7 +16,7 @@
 {{- end -}}
 {{- $meta = $meta | append (printf "[%s](%s)" (i18n "Canonical URL" | default "Canonical URL") .Permalink) -}}
 {{- $lines := slice (printf "# %s" .Title) "" (delimit $meta " · ") "" -}}
-{{- with .Description -}}
+{{- with partial "page-description.html" . | replaceRE `\s+` " " -}}
   {{- $lines = $lines | append (printf "> %s" .) "" -}}
 {{- end -}}
 {{- $lines = $lines | append (strings.TrimSpace .RawContent) "" -}}

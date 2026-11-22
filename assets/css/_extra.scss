@@ -94,3 +94,8 @@
     margin-left: auto;
   }
 }
+
+// The root 404 page shows the message once per language.
+.error-404 + .error-404 {
+  margin-top: 3em;
+}

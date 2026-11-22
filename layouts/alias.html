@@ -1,7 +1,24 @@
+{{- /*
+  The template of every alias page Hugo writes: the redirect from "/" to the default
+  language (defaultContentLanguageInSubdir) and the redirects from old URLs such as
+  /en/page/1/. .Permalink is the target and .Page the page it belongs to; nothing
+  tells the root page from /en/page/1/, which has the same target. The body is for
+  the visitors and fetchers that follow neither the script (it redirects from the
+  root only) nor the meta refresh: an alias to the home page of the default language
+  offers every language, any other alias links to its target.
+*/ -}}
+{{- $lang := hugo.Sites.Default.Language.Locale -}}
+{{- $title := site.Title -}}
+{{- $languageChoice := true -}}
+{{- with .Page -}}
+  {{- $lang = .Language.Locale -}}
+  {{- $title = cond (or .IsHome (eq .Title "")) .Site.Title (printf "%s // %s" .Title .Site.Title) -}}
+  {{- $languageChoice = and .IsHome (eq .Language.Lang hugo.Sites.Default.Language.Lang) -}}
+{{- end -}}
 <!DOCTYPE html>
-<html>
+<html lang="{{ $lang }}">
 <head>
-  <title>{{ .Permalink }}</title>
+  <title>{{ $title }}</title>
   <link rel="canonical" href="{{ .Permalink }}">
   <meta charset="utf-8">
   <script>
@@ -20,5 +37,16 @@
   </script>
   <meta http-equiv="refresh" content="0; url={{ .Permalink }}">
 </head>
-<body></body>
+<body>
+  {{- if $languageChoice }}
+  <h1>{{ site.Title }}</h1>
+  <ul>
+    {{- range hugo.Sites }}
+    <li><a lang="{{ .Language.Locale }}" href="{{ .Home.Permalink }}">{{ .Language.Label }}</a></li>
+    {{- end }}
+  </ul>
+  {{- else }}
+  <p><a href="{{ .Permalink }}">{{ .Permalink }}</a></p>
+  {{- end }}
+</body>
 </html>

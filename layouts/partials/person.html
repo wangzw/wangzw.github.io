@@ -1,0 +1,24 @@
+{{- /*
+  Returns the Person (schema.org) that is the author of the site, in the language
+  of the current site. The @id is the same in every language, so each language
+  names the other one in alternateName: the author names of the other languages
+  (languages.*.params.author) followed by the handle (params.author_handle).
+*/ -}}
+{{- $alternateNames := slice -}}
+{{- range hugo.Sites -}}
+  {{- if and (ne .Language.Lang site.Language.Lang) .Params.author -}}
+    {{- $alternateNames = $alternateNames | append .Params.author -}}
+  {{- end -}}
+{{- end -}}
+{{- with site.Params.author_handle -}}{{- $alternateNames = $alternateNames | append . -}}{{- end -}}
+{{- $sameAs := slice -}}
+{{- range site.Params.social -}}{{- $sameAs = $sameAs | append .url -}}{{- end -}}
+{{- $person := dict
+  "@type" "Person"
+  "@id" (printf "%s#person" site.BaseURL)
+  "name" site.Params.author
+  "url" site.Home.Permalink
+  "image" (site.Params.avatar | absURL) -}}
+{{- with $sameAs }}{{ $person = merge $person (dict "sameAs" .) }}{{ end -}}
+{{- with $alternateNames }}{{ $person = merge $person (dict "alternateName" .) }}{{ end -}}
+{{- return $person -}}
