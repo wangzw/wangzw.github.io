@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+Sitemap: {{ "sitemap.xml" | absURL }}
+{{- range site.Params.projects }}{{ with .sitemap }}
+Sitemap: {{ . }}
+{{- end }}{{ end }}

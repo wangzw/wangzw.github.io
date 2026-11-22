@@ -1,0 +1,55 @@
+{{- /* Canonical URL, hreflang alternates and JSON-LD for every page except the 404 page. */ -}}
+{{- if ne .Kind "404" -}}
+{{- $canonical := .Permalink -}}
+{{- $firstPage := true -}}
+{{- if in (slice "home" "section" "term") .Kind -}}
+  {{- with .Paginator -}}
+    {{- if gt .PageNumber 1 -}}
+      {{- $canonical = .URL | absURL -}}
+      {{- $firstPage = false -}}
+    {{- end -}}
+  {{- end -}}
+{{- end }}
+<link rel="canonical" href="{{ $canonical }}" />
+{{- if and $firstPage .IsTranslated }}
+{{- range .AllTranslations }}
+<link rel="alternate" hreflang="{{ .Language.Locale }}" href="{{ .Permalink }}" />
+{{- if eq .Language.Lang hugo.Sites.Default.Language.Lang }}
+<link rel="alternate" hreflang="x-default" href="{{ .Permalink }}" />
+{{- end }}
+{{- end }}
+{{- end }}
+{{- $author := dict "@type" "Person" "@id" (printf "%s#person" site.BaseURL) "name" site.Params.author "url" site.Home.Permalink -}}
+{{- if .IsHome }}
+{{- $sameAs := slice -}}
+{{- range site.Params.social }}{{ $sameAs = $sameAs | append .url }}{{ end -}}
+{{- $person := merge $author (dict
+  "image" (site.Params.avatar | absURL)
+  "sameAs" $sameAs) -}}
+{{- with site.Params.author_handle }}{{ $person = merge $person (dict "alternateName" .) }}{{ end -}}
+{{- $website := dict
+  "@type" "WebSite"
+  "name" site.Title
+  "url" site.Home.Permalink
+  "description" site.Params.description
+  "inLanguage" site.Language.Locale
+  "author" $author -}}
+<script type="application/ld+json">{{ dict "@context" "https://schema.org" "@graph" (slice $website $person) | jsonify | safeJS }}</script>
+{{- else if and .IsPage (eq .Section "posts") }}
+{{- $post := dict
+  "@context" "https://schema.org"
+  "@type" "BlogPosting"
+  "headline" .Title
+  "description" .Description
+  "url" .Permalink
+  "mainEntityOfPage" .Permalink
+  "datePublished" (.PublishDate.Format "2006-01-02T15:04:05-07:00")
+  "dateModified" (.Lastmod.Format "2006-01-02T15:04:05-07:00")
+  "inLanguage" site.Language.Locale
+  "wordCount" .WordCount
+  "keywords" (.Params.tags | default slice)
+  "author" $author
+  "publisher" $author -}}
+<script type="application/ld+json">{{ $post | jsonify | safeJS }}</script>
+{{- end }}
+{{- end }}

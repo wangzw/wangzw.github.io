@@ -1,0 +1,11 @@
+{{- /*
+  Replaces Hugo's embedded Twitter card template, which switches to
+  summary_large_image whenever a page has an image. The default share image is
+  the square avatar, so the card stays "summary".
+*/ -}}
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="{{ .Title | default site.Title }}" />
+<meta name="twitter:description" content="{{ .Description | default site.Params.description }}" />
+{{- with index (.Params.images | default site.Params.images | default slice) 0 }}
+<meta name="twitter:image" content="{{ . | absURL }}" />
+{{- end }}

@@ -1,0 +1,25 @@
+{{- /*
+  Publishes /llms.txt at the domain root (https://llmstxt.org/). Called once,
+  from the home page of the default language; the file lists the posts of every
+  language and the projects in site.Params.projects.
+*/ -}}
+{{- $lines := slice (printf "# %s" site.Title) "" -}}
+{{- $lines = $lines | append (printf "> %s" site.Params.llms_summary) "" -}}
+{{- range hugo.Sites -}}
+  {{- $lines = $lines | append (printf "## Posts (%s)" .Language.Label) "" -}}
+  {{- range where .RegularPages "Section" "posts" -}}
+    {{- $lines = $lines | append (printf "- [%s](%s): %s" .Title .Permalink .Description) -}}
+  {{- end -}}
+  {{- $lines = $lines | append "" -}}
+{{- end -}}
+{{- with site.Params.projects -}}
+  {{- $lines = $lines | append "## Projects" "" -}}
+  {{- range . -}}
+    {{- $lines = $lines | append (printf "- [%s](%s): %s" .name .url .description) -}}
+    {{- with .llms -}}
+      {{- $lines = $lines | append (printf "- [%s llms.txt](%s)" $.name .) -}}
+    {{- end -}}
+  {{- end -}}
+  {{- $lines = $lines | append "" -}}
+{{- end -}}
+{{- (resources.FromString "llms.txt" (delimit $lines "\n")).Publish -}}

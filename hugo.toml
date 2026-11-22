@@ -5,11 +5,28 @@ theme = "m10c"
 pluralizeListTitles = false
 defaultContentLanguage = "en"
 defaultContentLanguageInSubdir = true
+enableRobotsTXT = true
+hasCJKLanguage = true
+
+[taxonomies]
+tag = "tags"
 
 [params]
 menu_item_separator = " &centerdot; "
 avatar = "avatar.jpeg"
 favicon = "/favicon.ico"
+author_handle = "wangzw"
+# Share image (og:image / twitter:image) for pages that set no image of their own.
+images = ["avatar.jpeg"]
+llms_summary = "Personal blog of Zhanwei Wang. Every post is published in English and in Chinese."
+
+# Sites served under this domain from other repositories. Each one is listed in
+# /llms.txt, and its sitemap in /robots.txt and the root sitemap index.
+[[params.projects]]
+name = "peers"
+url = "https://zhanwei.wang/peers/"
+description = "Cross-host messaging for Claude Code sessions"
+sitemap = "https://zhanwei.wang/peers/sitemap.xml"
 
 [params.baidu]
 code = "04dde72fe229b92cb49f307348ec6df9"
@@ -49,10 +66,17 @@ pageRef = "/tags/"
 weight = 3
 
 [[languages.zh.menu.main]]
+identifier = "peers"
+name = "Peers"
+params = { description = "在不同主机上的 Claude Code 会话之间互发消息" }
+url = "https://zhanwei.wang/peers/zh/"
+weight = 4
+
+[[languages.zh.menu.main]]
 identifier = "about"
 name = "About"
 url = "https://github.com/wangzw"
-weight = 4
+weight = 5
 
 [languages.zh.menu.main.params]
 target = '_blank'
@@ -82,10 +106,17 @@ pageRef = "/tags/"
 weight = 3
 
 [[languages.en.menu.main]]
+identifier = "peers"
+name = "Peers"
+params = { description = "Cross-host messaging for Claude Code sessions" }
+url = "https://zhanwei.wang/peers/"
+weight = 4
+
+[[languages.en.menu.main]]
 identifier = "about"
 name = "About"
 url = "https://www.linkedin.com/in/wangzw/"
-weight = 4
+weight = 5
 
 [languages.en.menu.main.params]
 target = '_blank'
