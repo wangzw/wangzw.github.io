@@ -69,4 +69,5 @@ Hugo version in CI: `0.165.0` (extended). Match locally if debugging rendering d
 
 - `layouts/alias.html` — root-URL language detection + redirect. Reads `localStorage.preferred-lang`, falls back to `navigator.languages`, defaults to `en`. Touching this affects first-visit UX for every visitor.
 - `layouts/asde/list.html` — custom list for the `asde` section (EN-only, exposed via EN menu in `hugo.toml`).
+- `layouts/_markup/render-codeblock-mermaid.html` — renders ```` ```mermaid ```` code blocks as diagrams. It loads mermaid from jsdelivr, once per page and only on pages that contain a diagram; the theme itself has no mermaid support.
 - Post/tag templates come from the theme; override by copying into `layouts/` before editing.
