@@ -1,0 +1,79 @@
+{{ define "main" }}
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">{{ .Title }}</h1>
+      {{- if ne .Type "page" }}
+      <div class="post-meta">
+        <div>
+          {{ partial "icon.html" (dict "ctx" $ "name" "calendar") }}
+          {{ .PublishDate | time.Format ":date_medium" }}
+        </div>
+        {{- if partial "is-updated.html" . }}
+        <div>
+          {{ partial "icon.html" (dict "ctx" $ "name" "refresh-cw") }}
+          <span>{{ i18n "Updated" | default "Updated" }} <time datetime="{{ .Lastmod.Format "2006-01-02T15:04:05Z07:00" }}">{{ .Lastmod | time.Format ":date_medium" }}</time></span>
+        </div>
+        {{- end }}
+        <div>
+          {{ partial "icon.html" (dict "ctx" $ "name" "clock") }}
+          {{ i18n "reading_time" . }}
+        </div>
+        {{- with .Params.tags }}
+        <div>
+          {{ partial "icon.html" (dict "ctx" $ "name" "tag") }}
+          {{- range . -}}
+            {{ with $.Site.GetPage (printf "/%s/%s" "tags" . ) }}
+              <a class="tag" href="{{ .Permalink }}">{{ .Title }}</a>
+            {{- end }}
+          {{- end }}
+        </div>
+        {{- end }}
+      </div>
+      {{- end }}
+    </header>
+    <div class="post-content">
+      {{ partial "toc.html" . }}
+      {{ .Content }}
+    </div>
+    <div class="post-footer">
+      {{ template "_internal/disqus.html" . }}
+    </div>
+  </article>
+  {{- if eq .Section "posts" }}
+  {{- /* Previous is the post published before this one, next the one published after it. */}}
+  {{- $previous := .PrevInSection }}
+  {{- $next := .NextInSection }}
+  {{- if or $previous $next }}
+  <nav class="post-nav" aria-label="{{ i18n "Post navigation" | default "Post navigation" }}">
+    {{- with $previous }}
+    <a class="post-nav-link post-nav-prev" rel="prev" href="{{ .Permalink }}">
+      <span class="post-nav-label"><span aria-hidden="true">{{ partial "icon.html" (dict "ctx" $ "name" "arrow-left") }}</span> {{ i18n "Previous post" | default "Previous post" }}</span>
+      <span class="post-nav-title">{{ .Title }}</span>
+    </a>
+    {{- end }}
+    {{- with $next }}
+    <a class="post-nav-link post-nav-next" rel="next" href="{{ .Permalink }}">
+      <span class="post-nav-label">{{ i18n "Next post" | default "Next post" }} <span aria-hidden="true">{{ partial "icon.html" (dict "ctx" $ "name" "arrow-right") }}</span></span>
+      <span class="post-nav-title">{{ .Title }}</span>
+    </a>
+    {{- end }}
+  </nav>
+  {{- end }}
+  {{- with first 3 ((where .Site.RegularPages "Section" "posts").Related .) }}
+  <nav class="post-related" aria-labelledby="post-related-title">
+    <h2 class="post-related-title" id="post-related-title">{{ i18n "Related posts" | default "Related posts" }}</h2>
+    <ul class="posts-list">
+      {{- range . }}
+      <li class="posts-list-item">
+        <a class="posts-list-item-title" href="{{ .Permalink }}">{{ .Title }}</a>
+        <span class="posts-list-item-description">
+          {{ partial "icon.html" (dict "ctx" $ "name" "calendar") }}
+          {{ .PublishDate | time.Format ":date_medium" }}
+        </span>
+      </li>
+      {{- end }}
+    </ul>
+  </nav>
+  {{- end }}
+  {{- end }}
+{{ end }}

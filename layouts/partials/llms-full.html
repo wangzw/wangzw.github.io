@@ -1,0 +1,13 @@
+{{- /*
+  Publishes the full text of the posts of one language at the domain root:
+  /llms-full.txt for the default language, /llms-full-<lang>.txt for the others.
+  Called from the home page of every language, so that the labels of the Markdown
+  renditions (partials/post-markdown.html) come out in the language of the posts.
+  /llms.txt links to these files; the same file names are built in partials/llms.html.
+*/ -}}
+{{- $name := cond (eq .Language.Lang hugo.Sites.Default.Language.Lang) "llms-full.txt" (printf "llms-full-%s.txt" .Language.Lang) -}}
+{{- $parts := slice (printf "# %s\n\n> %s\n" .Site.Title .Site.Params.description) -}}
+{{- range where .Site.RegularPages "Section" "posts" -}}
+  {{- $parts = $parts | append (partial "post-markdown.html" .) -}}
+{{- end -}}
+{{- (resources.FromString $name (delimit $parts "\n---\n\n")).Publish -}}

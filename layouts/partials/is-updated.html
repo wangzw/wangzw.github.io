@@ -1,0 +1,2 @@
+{{- /* Returns true when the page was last modified a day or more after it was published. */ -}}
+{{- return (ge (.Lastmod.Sub .PublishDate).Hours 24.0) -}}

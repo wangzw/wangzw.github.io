@@ -3,3 +3,4 @@
 .playwright-cli/
 public/
 resources/
+__pycache__/

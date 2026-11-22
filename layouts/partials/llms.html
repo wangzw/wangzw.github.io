@@ -1,14 +1,18 @@
 {{- /*
   Publishes /llms.txt at the domain root (https://llmstxt.org/). Called once,
   from the home page of the default language; the file lists the posts of every
-  language and the projects in site.Params.projects.
+  language (linking to their Markdown renditions), the projects in
+  site.Params.projects and, under "Optional", the llms-full files published by
+  partials/llms-full.html.
 */ -}}
 {{- $lines := slice (printf "# %s" site.Title) "" -}}
 {{- $lines = $lines | append (printf "> %s" site.Params.llms_summary) "" -}}
 {{- range hugo.Sites -}}
   {{- $lines = $lines | append (printf "## Posts (%s)" .Language.Label) "" -}}
   {{- range where .RegularPages "Section" "posts" -}}
-    {{- $lines = $lines | append (printf "- [%s](%s): %s" .Title .Permalink .Description) -}}
+    {{- $url := .Permalink -}}
+    {{- with .OutputFormats.Get "markdown" -}}{{- $url = .Permalink -}}{{- end -}}
+    {{- $lines = $lines | append (printf "- [%s](%s): %s" .Title $url .Description) -}}
   {{- end -}}
   {{- $lines = $lines | append "" -}}
 {{- end -}}
@@ -22,4 +26,9 @@
   {{- end -}}
   {{- $lines = $lines | append "" -}}
 {{- end -}}
-{{- (resources.FromString "llms.txt" (delimit $lines "\n")).Publish -}}
+{{- $lines = $lines | append "## Optional" "" -}}
+{{- range hugo.Sites -}}
+  {{- $name := cond (eq .Language.Lang hugo.Sites.Default.Language.Lang) "llms-full.txt" (printf "llms-full-%s.txt" .Language.Lang) -}}
+  {{- $lines = $lines | append (printf "- [Full text of all posts (%s)](%s)" .Language.Label ($name | absURL)) -}}
+{{- end -}}
+{{- (resources.FromString "llms.txt" (delimit ($lines | append "") "\n")).Publish -}}

@@ -10,6 +10,7 @@
     <meta name="description" content="{{ .Description | default .Site.Params.description }}" />
     {{- partial "seo.html" . }}
     {{- if and .IsHome (eq .Language.Lang hugo.Sites.Default.Language.Lang) }}{{ partial "llms.html" . }}{{ end }}
+    {{- if .IsHome }}{{ partial "llms-full.html" . }}{{ end }}
     {{ $style := resources.Get "css/main.scss" | resources.ExecuteAsTemplate "css/main.scss" . | css.Sass | resources.Minify | resources.Fingerprint -}}
     <link rel="stylesheet" href="{{ $style.RelPermalink }}" />
     {{ with .OutputFormats.Get "rss" -}}

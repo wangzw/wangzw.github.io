@@ -1,4 +1,8 @@
-{{- /* Canonical URL, hreflang alternates and JSON-LD for every page except the 404 page. */ -}}
+{{- /*
+  Robots meta tag, canonical URL, hreflang alternates, the Markdown alternate of a
+  post and JSON-LD for every page except the 404 page. A page opts out of indexing
+  with `noindex = true`, which hugo.toml sets for the tag pages through a cascade.
+*/ -}}
 {{- if ne .Kind "404" -}}
 {{- $canonical := .Permalink -}}
 {{- $firstPage := true -}}
@@ -10,7 +14,13 @@
     {{- end -}}
   {{- end -}}
 {{- end }}
+{{- if .Params.noindex }}
+<meta name="robots" content="noindex, follow" />
+{{- end }}
 <link rel="canonical" href="{{ $canonical }}" />
+{{- with .OutputFormats.Get "markdown" }}
+<link rel="alternate" type="{{ .MediaType.Type }}" href="{{ .Permalink }}" />
+{{- end }}
 {{- if and $firstPage .IsTranslated }}
 {{- range .AllTranslations }}
 <link rel="alternate" hreflang="{{ .Language.Locale }}" href="{{ .Permalink }}" />

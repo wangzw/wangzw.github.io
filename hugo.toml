@@ -11,6 +11,41 @@ hasCJKLanguage = true
 [taxonomies]
 tag = "tags"
 
+# Markdown rendition of a post, published as index.md next to its index.html.
+[outputFormats.markdown]
+mediaType = "text/markdown"
+baseName = "index"
+isPlainText = true
+
+# Only posts get the Markdown rendition; every other page stays HTML-only.
+[[cascade]]
+outputs = ["html", "markdown"]
+[cascade.target]
+kind = "page"
+path = "/posts/**"
+
+# Tag pages are thin, repeat the site description and are not translated, so they
+# stay out of the sitemaps and are marked noindex (see layouts/partials/seo.html).
+[[cascade]]
+noindex = true
+[cascade.sitemap]
+disable = true
+[cascade.target]
+kind = "{taxonomy,term}"
+
+# Related posts shown at the end of a post: shared tags decide, the year breaks ties.
+[related]
+includeNewer = true
+threshold = 80
+toLower = true
+[[related.indices]]
+name = "tags"
+weight = 100
+[[related.indices]]
+name = "date"
+weight = 10
+pattern = "2006"
+
 [params]
 menu_item_separator = " &centerdot; "
 avatar = "avatar.jpeg"

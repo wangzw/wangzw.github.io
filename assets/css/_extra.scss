@@ -35,3 +35,62 @@
   margin-top: 0.2em;
   font-size: 0.85em;
 }
+
+// Previous/next links and related posts at the end of a post.
+.post-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1em;
+  margin-top: 2em;
+  padding-top: 1.5em;
+  border-top: 1px dashed rgba(255, 255, 255, 0.3);
+}
+
+.post-nav-link {
+  display: block;
+  flex: 1 1 100%;
+  padding: 0.6em 1em;
+  border-left: 0.4em solid rgba($primary-color, .8);
+  background: $darkest-color;
+
+  &:hover .post-nav-title {
+    color: $lightest-color;
+  }
+}
+
+.post-nav-next {
+  border-left: 0;
+  border-right: 0.4em solid rgba($primary-color, .8);
+  text-align: right;
+}
+
+.post-nav-label {
+  display: block;
+  font-size: 0.8em;
+  color: $light-color;
+}
+
+.post-nav-title {
+  display: block;
+  margin-top: 0.2em;
+  transition: color 0.35s;
+}
+
+.post-related {
+  margin-top: 2em;
+}
+
+.post-related-title {
+  margin: 0;
+  font-size: 1em;
+}
+
+@media (min-width: 450px) {
+  .post-nav-link {
+    flex: 0 1 calc(50% - 0.5em);
+  }
+
+  .post-nav-next {
+    margin-left: auto;
+  }
+}
