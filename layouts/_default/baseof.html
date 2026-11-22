@@ -53,7 +53,7 @@
         <ul>
           {{- range . }}
           <li>
-            <a href="{{ .url }}">{{ .name }}</a>
+            <a href="{{ .url }}" target="_blank" rel="noopener">{{ .name }}</a>
             <span class="app-header-projects-description">{{ .description }}</span>
           </li>
           {{- end }}
