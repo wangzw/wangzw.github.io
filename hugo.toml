@@ -51,7 +51,8 @@ title = '王占伟'
 
 [languages.zh.params]
 author = "王占伟"
-description = "Talk is cheap, so let's talk."
+description = "软件工程师王占伟的个人博客。"
+motto = "Talk is cheap, so let's talk."
 
 [[languages.zh.menu.main]]
 identifier = "home"
@@ -91,7 +92,8 @@ title = 'Zhanwei Wang'
 
 [languages.en.params]
 author = "Zhanwei Wang"
-description = "Talk is cheap, so let's talk."
+description = "The personal blog of Zhanwei Wang, a software engineer."
+motto = "Talk is cheap, so let's talk."
 
 [[languages.en.menu.main]]
 identifier = "home"
