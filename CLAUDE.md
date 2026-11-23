@@ -11,6 +11,29 @@ Hugo site (theme `m10c`) deployed to GitHub Pages. Two git submodules:
 
 The parent repo tracks everything except the posts: configuration, layout overrides, styles, translations, `scripts/`, the files in `static/`, the deploy workflow and the submodule pointers. Editing `content/` is editing the `blog` repo; changes must be pushed **inside the submodule first**, then the parent repo must bump its submodule pointer.
 
+## Commit Convention
+
+Supplements the `commit-convention` skill.
+
+### Scopes
+
+- `assets`: `assets/`, the stylesheet that extends the theme
+- `ci`: `.github/workflows/`, the workflow that builds and deploys
+- `config`: `hugo.toml` and `archetypes/`, the site configuration and the scaffolding for new content
+- `content`: the `content` submodule, where the posts and pages live
+- `i18n`: `i18n/`, the Chinese interface strings
+- `layouts`: `layouts/`, the template overrides
+- `scripts`: `scripts/`, the IndexNow helper and its tests
+- `skills`: `.claude/skills/`, the project's own skills
+- `static`: `static/`, the files served from the domain root
+- `theme`: the `themes/m10c` submodule pointer
+- `site`: cross-cutting changes
+- `repo`: repository-level configuration such as `.gitignore`, `.gitmodules`, `README.md` and this file
+
+### Rules
+
+- A post change is a commit inside the `content` submodule; the parent repository then records it in a separate commit that bumps the pointer and states what the submodule commits contain.
+
 ## Publishing a blog post — the canonical flow
 
 Writing a new post starts with the `blog-post` skill (`.claude/skills/blog-post/`): gather the author's material, list the claims, write straight through, then translate. The steps below are the publishing mechanics that follow it.
