@@ -12,11 +12,9 @@
 {{- range hugo.Sites -}}
   {{- $lines = $lines | append (printf "## Posts (%s)" .Language.Label) "" -}}
   {{- range where .RegularPages "Section" "posts" -}}
-    {{- $url := .Permalink -}}
-    {{- with .OutputFormats.Get "markdown" -}}{{- $url = .Permalink -}}{{- end -}}
     {{- $notes := "" -}}
     {{- with partial "page-description.html" . | replaceRE `\s+` " " -}}{{- $notes = printf ": %s" . -}}{{- end -}}
-    {{- $lines = $lines | append (printf "- [%s](%s)%s" (.Title | replaceRE `([\[\]])` `\$1`) $url $notes) -}}
+    {{- $lines = $lines | append (printf "- [%s](%s)%s" (.Title | replaceRE `([\[\]])` `\$1`) (partial "markdown-url.html" .) $notes) -}}
   {{- end -}}
   {{- $lines = $lines | append "" -}}
 {{- end -}}
@@ -47,4 +45,7 @@
   {{- $name := cond (eq .Language.Lang hugo.Sites.Default.Language.Lang) "llms-full.txt" (printf "llms-full-%s.txt" .Language.Lang) -}}
   {{- $lines = $lines | append (printf "- [Full text of all posts (%s)](%s)" .Language.Label ($name | absURL)) -}}
 {{- end -}}
-{{- (resources.FromString "llms.txt" (delimit ($lines | append "") "\n")).Publish -}}
+{{- $content := delimit ($lines | append "") "\n" -}}
+{{- (resources.FromString "llms.txt" $content).Publish -}}
+{{- /* The root URL is an alias page with no rendition of its own; this index stands in as its index.md. */ -}}
+{{- (resources.FromString "index.md" $content).Publish -}}

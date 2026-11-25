@@ -96,6 +96,12 @@ jobs:
             --minify \
             --baseURL "${{ steps.pages.outputs.base_url }}/"
 
+      # Cloudflare rewrites a request that accepts text/markdown to <page URL>index.md,
+      # so a page without that file stops the deploy.
+      - name: Check that every page has its Markdown rendition
+        if: steps.should-deploy.outputs.value == 'true'
+        run: python3 scripts/check_markdown.py public
+
       # Runs before the deploy, while the live sitemaps still describe the old site.
       # The script reports problems as warnings and exits 0, so this step cannot block the deploy.
       - name: Find URLs that are new or changed since the live site

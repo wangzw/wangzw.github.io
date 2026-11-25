@@ -1,6 +1,6 @@
 {{- /*
-  Robots meta tag, canonical URL, hreflang alternates, the Markdown alternate of a
-  post and JSON-LD for every page except the 404 page. A page opts out of indexing
+  Robots meta tag, canonical URL, hreflang alternates, the Markdown alternate of the
+  page and JSON-LD for every page except the 404 page. A page opts out of indexing
   with `noindex = true`, which hugo.toml sets for the tag pages through a cascade.
   JSON-LD: WebSite + Person on the home pages, BlogPosting on posts and ProfilePage
   on the About page; a field with no value is left out.
@@ -20,8 +20,10 @@
 <meta name="robots" content="noindex, follow" />
 {{- end }}
 <link rel="canonical" href="{{ $canonical }}" />
+{{- if $firstPage }}
 {{- with .OutputFormats.Get "markdown" }}
 <link rel="alternate" type="{{ .MediaType.Type }}" href="{{ .Permalink }}" />
+{{- end }}
 {{- end }}
 {{- if and $firstPage .IsTranslated }}
 {{- /* Sorted: for term pages .AllTranslations comes back in a different order from build to build. */}}

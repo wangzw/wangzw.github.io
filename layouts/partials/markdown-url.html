@@ -1,0 +1,4 @@
+{{- /* Returns the URL of the page's Markdown rendition (index.md), or its permalink when it has none. */ -}}
+{{- $url := .Permalink -}}
+{{- with .OutputFormats.Get "markdown" -}}{{- $url = .Permalink -}}{{- end -}}
+{{- return $url -}}

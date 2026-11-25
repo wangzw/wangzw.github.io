@@ -11,18 +11,20 @@ hasCJKLanguage = true
 [taxonomies]
 tag = "tags"
 
-# Markdown rendition of a post, published as index.md next to its index.html.
+# Markdown rendition of a page, published as index.md next to its index.html.
 [outputFormats.markdown]
 mediaType = "text/markdown"
 baseName = "index"
 isPlainText = true
 
-# Only posts get the Markdown rendition; every other page stays HTML-only.
-[[cascade]]
-outputs = ["html", "markdown"]
-[cascade.target]
-kind = "page"
-path = "/posts/**"
+# Every kind needs the rendition: Cloudflare rewrites a request that accepts
+# text/markdown to <page URL>index.md, and a page without one would answer 404.
+[outputs]
+home = ["html", "rss", "markdown"]
+section = ["html", "rss", "markdown"]
+taxonomy = ["html", "rss", "markdown"]
+term = ["html", "rss", "markdown"]
+page = ["html", "markdown"]
 
 # Tag pages are thin, repeat the site description and are not translated, so they
 # stay out of the sitemaps and are marked noindex (see layouts/partials/seo.html).

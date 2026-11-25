@@ -23,7 +23,7 @@ Supplements the `commit-convention` skill.
 - `content`: the `content` submodule, where the posts and pages live
 - `i18n`: `i18n/`, the Chinese interface strings
 - `layouts`: `layouts/`, the template overrides
-- `scripts`: `scripts/`, the IndexNow helper and its tests
+- `scripts`: `scripts/`, the IndexNow helper, the Markdown rendition check and their tests
 - `skills`: `.claude/skills/`, the project's own skills
 - `static`: `static/`, the files served from the domain root
 - `theme`: the `themes/m10c` submodule pointer
@@ -64,7 +64,7 @@ Every post MUST be bilingual. Hugo is configured with `defaultContentLanguage = 
    ```
    (A daily cron workflow also syncs the submodule, so step 5 can be skipped for non-urgent posts — but pushing it yourself deploys immediately.)
 
-Every post is also published as Markdown at `<post URL>index.md` (linked from the post's `<head>`, from `/llms.txt` and in full from `/llms-full.txt` and `/llms-full-zh.txt`). That file is the source as written, so **posts must not use shortcodes**; the build fails with the post's path if one does. Mermaid code blocks are fine.
+Every post is also published as Markdown at `<post URL>index.md` (linked from the post's `<head>`, from `/llms.txt` and in full from `/llms-full.txt` and `/llms-full-zh.txt`). That file is the source as written, so **posts must not use shortcodes** (nor may the About page, which is published the same way); the build fails with the page's path if one does. Mermaid code blocks are fine.
 
 ### Revising a published post
 
@@ -94,7 +94,8 @@ The CI build runs with `TZ=Asia/Shanghai` (see `.github/workflows/update-content
 | Build output location | `public/` (gitignored) |
 | Sync submodules after fresh clone | `git submodule update --init --recursive` |
 | Pull latest content only | `git submodule update --remote content` |
-| Test the IndexNow script | `python3 -m unittest discover -s scripts -v` |
+| Test the scripts | `python3 -m unittest discover -s scripts -v` |
+| Check the Markdown renditions of a build | `python3 scripts/check_markdown.py public` |
 
 Hugo version in CI: `0.165.0` (extended). Match locally if debugging rendering differences.
 
@@ -103,6 +104,34 @@ Hugo version in CI: `0.165.0` (extended). Match locally if debugging rendering d
 `.github/workflows/update-content.yaml` runs on (a) every push to `main`, (b) a daily UTC-midnight cron that auto-syncs the `content` submodule and deploys if it moved, and (c) manual dispatch. Pushes bypass the "did submodule change" check and always deploy. There is no staging — `main` is production.
 
 IndexNow: after the Hugo build and before the deploy, the build job runs `scripts/indexnow.py diff`, which compares the live `/en/sitemap.xml` and `/zh/sitemap.xml` with the fresh ones in `public/` and keeps the URLs that are new or whose `<lastmod>` changed. When there are any, the `indexnow` job (it needs a successful `deploy`) runs `scripts/indexnow.py submit`. A failed comparison or submission is printed as a `::warning::` annotation and the script exits 0, so it can never fail the deploy; no URLs means no request. The key is public by design: it is `static/<key>.txt` (the file name and the content are the key), served at the domain root; the script finds it there. Dry run: `python3 scripts/indexnow.py submit <urls-file> --dry-run`.
+
+## Markdown for agents
+
+A request with `Accept: text/markdown` gets the Markdown rendition of the page; HTML stays the default. GitHub Pages cannot negotiate, so two parts work together:
+
+- **This repo** publishes an `index.md` next to the `index.html` of every page under `/en/` and `/zh/` (`[outputs]` in `hugo.toml`, `layouts/_default/single.md` and `list.md`) and one at the root (`/index.md`, the text of `/llms.txt`). GitHub Pages serves them as `text/markdown; charset=utf-8`.
+- **Cloudflare** (zone `zhanwei.wang`, in front of GitHub Pages) holds two Transform Rules. They are set in the dashboard under Rules, not in this repo.
+
+URL Rewrite Rule, rewriting the path dynamically to `concat(http.request.uri.path, "index.md")` and preserving the query:
+
+```
+http.host eq "zhanwei.wang"
+and (http.request.uri.path eq "/" or starts_with(http.request.uri.path, "/en/") or starts_with(http.request.uri.path, "/zh/"))
+and ends_with(http.request.uri.path, "/")
+and not (http.request.uri.path contains "/page/")
+and any(http.request.headers["accept"][*] contains "text/markdown")
+```
+
+Response Header Transform Rule, **adding** (not setting, the origin sends `Vary: Accept-Encoding`) the header `Vary: Accept`. It uses the `raw.` field because the rewrite has already changed `http.request.uri.path`:
+
+```
+http.host eq "zhanwei.wang" and ends_with(raw.http.request.uri.path, "/")
+```
+
+- The rewrite rule matches only this site. `/peers/` is negotiated by a rule of its own, which belongs to that project's repository.
+- Pager pages and their aliases (`/page/N/`) have no rendition, so the rule skips them and they stay HTML.
+- A page in the rule's scope without an `index.md` would answer a Markdown request with a 404. `scripts/check_markdown.py` repeats the scope (`PREFIXES`, `EXCLUDED`) and the build job runs it after Hugo: such a page stops the deploy. A front matter `aliases` entry under `/en/` or `/zh/` is such a page. Change the rule and the script together, and add a language to both.
+- Check the live site: `curl -sI -H "Accept: text/markdown" https://zhanwei.wang/en/` must show `content-type: text/markdown; charset=utf-8` and `vary: Accept`; without the header the same URL is `text/html`.
 
 ## Layout overrides
 
@@ -116,13 +145,15 @@ IndexNow: after the Hugo build and before the deploy, the build job runs `script
 - `layouts/partials/person.html` — the schema.org `Person` of the author, in the language of the current site. `@id` is `https://zhanwei.wang/#person` in both languages; `alternateName` lists the author names of the other languages (`languages.*.params.author`) and then `params.author_handle`; `sameAs` comes from `params.social`.
 - `layouts/partials/pager-number.html` — the page number of a paginated list page (1 otherwise).
 - `layouts/_default/single.html` — copy of the theme's post template, plus an "Updated <date>" entry in the post meta (see "Revising a published post") and, for posts, previous/next links and up to three related posts after the article. Related posts come from `[related]` in `hugo.toml` (shared tags decide, the year breaks ties); both blocks are styled in `assets/css/_extra.scss` and are left out when empty.
-- `layouts/_default/single.md`, `layouts/partials/post-markdown.html` — the Markdown rendition of a post (`index.md`: H1 title, date and canonical URL line, description, source body). It comes from the `markdown` output format in `hugo.toml`, which a site-level `cascade` gives to pages under `/posts/` only. `llms-full.html` reuses the partial.
+- `layouts/_default/single.md`, `layouts/partials/post-markdown.html` — the Markdown rendition of a post or the About page (`index.md`: H1 title, date and canonical URL line, description, source body; no date on a page without one). It comes from the `markdown` output format in `hugo.toml`, which `[outputs]` gives to every page kind (see "Markdown for agents"). `llms-full.html` reuses the partial.
+- `layouts/_default/list.md` — the Markdown rendition of a list page (a home page, `/posts/`, the tags overview, a tag): what the HTML page lists, without pagination, every entry linking to the Markdown rendition of its target. A home page also links to the menu pages and the other language and lists `params.projects`.
+- `layouts/partials/markdown-url.html` — the URL of a page's Markdown rendition (its permalink when it has none); used by `list.md` and `llms.html`.
 - `layouts/partials/is-updated.html` — true when `lastmod` is a day or more after `date`; used by `single.html` and `post-markdown.html`.
-- `layouts/partials/seo.html` — `noindex, follow` robots meta for pages with `noindex = true`, canonical link, hreflang alternates (`x-default` is the English page), the `text/markdown` alternate link of a post and JSON-LD: `WebSite` + `Person` on the home pages, `BlogPosting` (with `image` and the full `Person` as author) on posts, `ProfilePage` (its `mainEntity` is the same `Person`) on the About page `/about`. Fields with no value are left out.
+- `layouts/partials/seo.html` — `noindex, follow` robots meta for pages with `noindex = true`, canonical link, hreflang alternates (`x-default` is the English page), the `text/markdown` alternate link of the page (left out on the second and later pages of a list, which have no rendition) and JSON-LD: `WebSite` + `Person` on the home pages, `BlogPosting` (with `image` and the full `Person` as author) on posts, `ProfilePage` (its `mainEntity` is the same `Person`) on the About page `/about`. Fields with no value are left out.
 - `layouts/partials/twitter_cards.html` — replaces Hugo's embedded Twitter card template so the card stays `summary`; the default share image (`params.images`) is the square avatar, which the large-image card would crop.
-- `layouts/partials/llms.html` — publishes `/llms.txt` at the domain root, listing the posts of both languages (linking to their `index.md`; the `: description` part is left out when there is none, brackets in titles are escaped), `params.projects` with the `llms` file of each project in every language, and, under "Optional", the two llms-full files.
+- `layouts/partials/llms.html` — publishes `/llms.txt` at the domain root, listing the posts of both languages (linking to their `index.md`; the `: description` part is left out when there is none, brackets in titles are escaped), `params.projects` with the `llms` file of each project in every language, and, under "Optional", the two llms-full files. It publishes the same text as `/index.md`, the Markdown rendition of the root URL, which is an alias page and has none of its own.
 - `layouts/partials/llms-full.html` — publishes `/llms-full.txt` (English) and `/llms-full-zh.txt` (Chinese): the Markdown renditions of all posts of that language, concatenated. It runs on each language's home page so the labels come out in that language.
-- `layouts/robots.txt`, `layouts/sitemapindex.xml` — open to every crawler. `params.projects` in `hugo.toml` are sites served under this domain from other repositories (currently `/peers/`): `sitemap` (an index is fine there) goes into `robots.txt`; the root sitemap index may not contain another index, so it lists the leaf sitemaps named in `sitemaps` (or `sitemap` when there are none). `llms` is the project's `llms.txt`; `languages.zh.params.projects` repeats all of it with the Chinese URLs.
+- `layouts/robots.txt`, `layouts/sitemapindex.xml` — open to every crawler; `robots.txt` declares `Content-Signal: ai-train=yes, search=yes, ai-input=yes` (https://contentsignals.org/) for the whole domain, the project sites included. `params.projects` in `hugo.toml` are sites served under this domain from other repositories (currently `/peers/`): `sitemap` (an index is fine there) goes into `robots.txt`; the root sitemap index may not contain another index, so it lists the leaf sitemaps named in `sitemaps` (or `sitemap` when there are none). `llms` is the project's `llms.txt`; `languages.zh.params.projects` repeats all of it with the Chinese URLs.
 - Tag pages (`/tags/` and every tag) are `noindex, follow` and left out of the sitemaps: a site-level `cascade` in `hugo.toml` sets `noindex = true` and `sitemap.disable = true` on `taxonomy` and `term` pages. To keep another page out of the index, set the same two keys in its front matter. A second `cascade` gives the Chinese tags overview its title "标签" (the taxonomy name is not translated by Hugo), so keep it equal to "Tags" in `i18n/zh.toml`.
 - The About page is `content/about.{en,zh}.md`, linked from the menu by `pageRef` in `hugo.toml`.
 - Other templates come from the theme; override by copying into `layouts/` before editing.

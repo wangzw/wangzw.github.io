@@ -1,16 +1,15 @@
 {{- /*
-  Returns a post as Markdown: the title as an H1, a metadata line, the description
-  and the body as written in the source file. Used for the post's index.md
-  (layouts/_default/single.md) and for llms-full.txt (partials/llms-full.html). The
-  description is the one of partials/page-description.html, on one line.
-
-  The body is the raw source, so a shortcode would be published unexpanded. No post
-  uses one; if one is added the build stops instead of publishing broken Markdown.
+  Returns a regular page (a post, the About page) as Markdown: the title as an H1,
+  a metadata line, the description on one line and the body as written in the source file.
+  The body is the raw source, so the build stops on a shortcode instead of publishing it unexpanded.
 */ -}}
 {{- if findRE `\{\{[<%]\s*[^\s/*]` .RawContent -}}
   {{- errorf "%s uses a shortcode, which the Markdown rendition (index.md) cannot expand; see layouts/partials/post-markdown.html" .File.Path -}}
 {{- end -}}
-{{- $meta := slice (printf "%s %s" (i18n "Published" | default "Published") (.PublishDate.Format "2006-01-02")) -}}
+{{- $meta := slice -}}
+{{- if not .PublishDate.IsZero -}}
+  {{- $meta = $meta | append (printf "%s %s" (i18n "Published" | default "Published") (.PublishDate.Format "2006-01-02")) -}}
+{{- end -}}
 {{- if partial "is-updated.html" . -}}
   {{- $meta = $meta | append (printf "%s %s" (i18n "Updated" | default "Updated") (.Lastmod.Format "2006-01-02")) -}}
 {{- end -}}
