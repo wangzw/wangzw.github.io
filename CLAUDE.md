@@ -105,6 +105,8 @@ Hugo version in CI: `0.165.0` (extended). Match locally if debugging rendering d
 
 IndexNow: after the Hugo build and before the deploy, the build job runs `scripts/indexnow.py diff`, which compares the live `/en/sitemap.xml` and `/zh/sitemap.xml` with the fresh ones in `public/` and keeps the URLs that are new or whose `<lastmod>` changed. When there are any, the `indexnow` job (it needs a successful `deploy`) runs `scripts/indexnow.py submit`. A failed comparison or submission is printed as a `::warning::` annotation and the script exits 0, so it can never fail the deploy; no URLs means no request. The key is public by design: it is `static/<key>.txt` (the file name and the content are the key), served at the domain root; the script finds it there. Dry run: `python3 scripts/indexnow.py submit <urls-file> --dry-run`.
 
+`static/baidu_verify_codeva-*.html` proves ownership of `https://zhanwei.wang` to Baidu's search resource platform; the site stays verified only while the file is served.
+
 ## Markdown for agents
 
 A request with `Accept: text/markdown` gets the Markdown rendition of the page; HTML stays the default. GitHub Pages cannot negotiate, so two parts work together:
