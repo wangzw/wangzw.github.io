@@ -67,20 +67,15 @@ author_handle = "wangzw"
 images = ["avatar.jpeg"]
 llms_summary = "Personal blog of Zhanwei Wang. Every post is published in English and in Chinese."
 
-# Sites served under this domain from other repositories. Each one is shown in
-# the "Projects" section of the sidebar and listed in /llms.txt (with its llms.txt,
-# when it has one). `sitemap` is the project's sitemap, which may be an index: it
-# is listed in /robots.txt. `sitemaps` names the leaf sitemaps (urlsets) behind it
-# for the root sitemap index, which may not contain another index; without
-# `sitemaps` the root index lists `sitemap` itself. languages.zh.params repeats
-# the list with the Chinese URLs and description.
+# The author's projects, each a site of its own. They are linked from the
+# "Projects" section of the sidebar, the Markdown rendition of the home page and
+# /llms.txt (with the project's llms.txt, when it has one). languages.zh.params
+# repeats the list with the Chinese URLs and description.
 [[params.projects]]
 name = "peers"
-url = "https://zhanwei.wang/peers/"
+url = "https://peers.zhanwei.wang/"
 description = "Cross-host messaging for Claude Code sessions"
-llms = "https://zhanwei.wang/peers/llms.txt"
-sitemap = "https://zhanwei.wang/peers/sitemap.xml"
-sitemaps = ["https://zhanwei.wang/peers/en/sitemap.xml", "https://zhanwei.wang/peers/zh/sitemap.xml"]
+llms = "https://peers.zhanwei.wang/llms.txt"
 
 [params.baidu]
 code = "04dde72fe229b92cb49f307348ec6df9"
@@ -110,11 +105,9 @@ motto = "Talk is cheap, so let's talk."
 
 [[languages.zh.params.projects]]
 name = "peers"
-url = "https://zhanwei.wang/peers/zh/"
+url = "https://peers.zhanwei.wang/zh/"
 description = "在不同主机上的 Claude Code 会话之间互发消息"
-llms = "https://zhanwei.wang/peers/zh/llms.txt"
-sitemap = "https://zhanwei.wang/peers/sitemap.xml"
-sitemaps = ["https://zhanwei.wang/peers/en/sitemap.xml", "https://zhanwei.wang/peers/zh/sitemap.xml"]
+llms = "https://peers.zhanwei.wang/zh/llms.txt"
 
 [[languages.zh.menu.main]]
 identifier = "home"
