@@ -23,7 +23,7 @@ Supplements the `commit-convention` skill.
 - `content`: the `content` submodule, where the posts and pages live
 - `i18n`: `i18n/`, the Chinese interface strings
 - `layouts`: `layouts/`, the template overrides
-- `scripts`: `scripts/`, the IndexNow helper, the Markdown rendition check and their tests
+- `scripts`: `scripts/`, the IndexNow helper, the Markdown rendition check, their tests and the test of `layouts/robots.txt`
 - `skills`: `.claude/skills/`, the project's own skills
 - `static`: `static/`, the files served from the domain root
 - `theme`: the `themes/m10c` submodule pointer
@@ -154,7 +154,7 @@ http.host eq "zhanwei.wang" and ends_with(raw.http.request.uri.path, "/")
 - `layouts/partials/twitter_cards.html` — replaces Hugo's embedded Twitter card template so the card stays `summary`; the default share image (`params.images`) is the square avatar, which the large-image card would crop.
 - `layouts/partials/llms.html` — publishes `/llms.txt` at the domain root, listing the posts of both languages (linking to their `index.md`; the `: description` part is left out when there is none, brackets in titles are escaped), `params.projects` with the `llms` file of each project in every language, and, under "Optional", the two llms-full files. It publishes the same text as `/index.md`, the Markdown rendition of the root URL, which is an alias page and has none of its own.
 - `layouts/partials/llms-full.html` — publishes `/llms-full.txt` (English) and `/llms-full-zh.txt` (Chinese): the Markdown renditions of all posts of that language, concatenated. It runs on each language's home page so the labels come out in that language.
-- `layouts/robots.txt` — open to every crawler; it declares `Content-Signal: ai-train=yes, search=yes, ai-input=yes` (https://contentsignals.org/) and points to the root sitemap index `/sitemap.xml` (Hugo's built-in template), which lists the two language sitemaps.
+- `layouts/robots.txt` — open to every crawler and points to the root sitemap index `/sitemap.xml` (Hugo's built-in template), which lists the two language sitemaps. It holds no `Content-Signal` line: Google reports it as a rule Googlebot ignores and Bing's tester as an error, and with every signal `yes` it says no more than leaving it out.
 - `params.projects` in `hugo.toml` — the author's projects, each a site of its own (currently peers). They are only linked: from the sidebar, the Markdown rendition of the home pages and `/llms.txt` (`llms` is the project's `llms.txt`). `languages.zh.params.projects` repeats the list with the Chinese URLs.
 - Tag pages (`/tags/` and every tag) are `noindex, follow` and left out of the sitemaps: a site-level `cascade` in `hugo.toml` sets `noindex = true` and `sitemap.disable = true` on `taxonomy` and `term` pages. To keep another page out of the index, set the same two keys in its front matter. A second `cascade` gives the Chinese tags overview its title "标签" (the taxonomy name is not translated by Hugo), so keep it equal to "Tags" in `i18n/zh.toml`.
 - The About page is `content/about.{en,zh}.md`, linked from the menu by `pageRef` in `hugo.toml`.
